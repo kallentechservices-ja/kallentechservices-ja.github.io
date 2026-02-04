@@ -35,6 +35,7 @@
       "alternateName": "K.A.T.S.", 
       "url": "https://kallentechsolutions.github.io/", 
       "logo": "https://kallentechsolutions.github.io/logo.png", 
+      "image": "https://kallentechsolutions.github.io/logo.png",
       "address": { 
         "@type": "PostalAddress", 
         "streetAddress": "39 Grovedale Drive", 
@@ -42,15 +43,14 @@
         "addressRegion": "St. Andrew", 
         "addressCountry": "JM" 
       },
-      "telephone": "+18763833293"
+      "telephone": "+18763833293",
+      "priceRange": "$$",
+      "openingHours": "Mo-Fr 09:00-17:00"
     } 
     </script> 
 
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-     
-    <link rel="icon" type="image/png" href="logo.png"> 
-    <link rel="apple-touch-icon" href="logo.png"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> 
      
     <style> 
@@ -62,7 +62,17 @@
             --whatsapp: #25d366; --facebook: #1877F2; --instagram: #E4405F; --linkedin: #0077B5; 
         } 
 
-        /* CUSTOM COOL SCROLLBAR */
+        /* PRELOADER */
+        #loader-wrapper {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--dark-bg); z-index: 10000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .loader-bar { width: 200px; height: 2px; background: rgba(255,255,255,0.1); position: relative; margin-top: 15px; }
+        .loader-progress { position: absolute; height: 100%; background: var(--light-blue); width: 0%; transition: 0.3s; box-shadow: 0 0 10px var(--light-blue); }
+
+        /* SCROLLBAR */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--dark-bg); }
         ::-webkit-scrollbar-thumb { background: linear-gradient(var(--light-blue), var(--neon-green)); border-radius: 10px; }
@@ -83,13 +93,11 @@
         body {  
             margin: 0; padding: 0; background-color: var(--dark-bg); 
             color: #ffffff; font-family: 'Segoe UI', Roboto, sans-serif; 
-            overflow-x: hidden; 
-            cursor: crosshair; 
+            overflow-x: hidden; cursor: crosshair; 
             background-image:  
                 linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px), 
                 linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px); 
-            background-size: 50px 50px; 
-            transition: background 0.3s ease;
+            background-size: 50px 50px; transition: background 0.3s ease;
         } 
 
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; } 
@@ -101,7 +109,6 @@
         .side-tile::before { content: attr(data-label); position: absolute; right: 60px; background: var(--light-blue); color: #000; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; opacity: 0; transition: 0.3s; pointer-events: none; white-space: nowrap; } 
         .side-tile:hover::before { opacity: 1; right: 70px; } 
 
-        /* SMOOTH SCROLL BUTTON */
         #scrollTop { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: var(--neon-green); color: #000; border: none; border-radius: 50%; font-size: 24px; cursor: pointer; display: none; z-index: 2500; box-shadow: 0 0 20px var(--neon-green); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         #scrollTop:hover { transform: translateY(-10px); background: #fff; }
 
@@ -145,14 +152,21 @@
         .hub-row:hover { border-color: var(--light-blue); background: rgba(255,255,255,0.08); } 
         .hub-row .label { color: var(--neon-green); font-size: 0.7rem; font-weight: 900; border: 1px solid var(--neon-green); padding: 3px 8px; border-radius: 5px; text-transform: uppercase; } 
 
-        .btn-glow { background: var(--light-blue); color: #000; padding: 22px 80px; border-radius: 15px; text-decoration: none; font-weight: 900; font-size: 1.2rem; transition: 0.3s; cursor: pointer; display: inline-block; } 
-        .btn-glow:hover { transform: scale(1.05); box-shadow: 0 0 40px var(--light-blue); background: #fff; } 
+        .btn-glow { 
+            background: var(--light-blue); color: #000; padding: 22px 80px; border-radius: 15px; 
+            text-decoration: none; font-weight: 900; font-size: 1.2rem; transition: 0.3s; 
+            cursor: pointer; display: inline-block; animation: glowPulse 2s infinite; 
+        } 
+        @keyframes glowPulse { 0% { box-shadow: 0 0 5px var(--light-blue); } 50% { box-shadow: 0 0 25px var(--light-blue); } 100% { box-shadow: 0 0 5px var(--light-blue); } }
+        .btn-glow:hover { transform: scale(1.05); background: #fff; animation: none; box-shadow: 0 0 40px #fff; } 
           
         .footer-socials { display: flex; justify-content: center; gap: 35px; margin-top: 20px; } 
         .footer-socials a { font-size: 2.5rem; transition: 0.3s; } 
         .wa-icon { color: var(--whatsapp); } .fb-icon { color: var(--facebook); } .ig-icon { color: var(--instagram); } .li-icon { color: var(--linkedin); } 
 
         footer { text-align: center; padding: 80px 20px; color: #666; font-weight: 900; } 
+        .legal-link { cursor: pointer; text-decoration: underline; transition: 0.3s; }
+        .legal-link:hover { color: var(--light-blue); }
         .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s all ease-out; } 
         .reveal.active { opacity: 1; transform: translateY(0); } 
 
@@ -179,6 +193,11 @@
     </style> 
 </head> 
 <body> 
+
+ <div id="loader-wrapper">
+    <div style="font-family: monospace; color: var(--neon-green); letter-spacing: 2px;">INITIALIZING KATS_OS...</div>
+    <div class="loader-bar"><div class="loader-progress" id="load-progress"></div></div>
+ </div>
 
  <div class="terminal-overlay"></div>
  <canvas id="bg-canvas"></canvas> 
@@ -220,35 +239,35 @@
 
      <div class="services-grid"> 
           <div class="card reveal"> 
-              <img src="https://images.unsplash.com/photo-1517059224940-d4af9eec41b7?q=80&w=800&auto=format&fit=crop" class="card-img"> 
+              <img src="https://images.unsplash.com/photo-1517059224940-d4af9eec41b7?q=80&w=800&auto=format&fit=crop" class="card-img" loading="lazy"> 
               <div class="card-content"><h3>Apple Support</h3><p>Specialized iMac and MacBook diagnostics, PSU replacements, and precision display re-sealing.</p></div> 
           </div> 
           <div class="card reveal"> 
-              <img src="https://images.unsplash.com/photo-1555617766-c94804975da3?auto=format&fit=crop&w=800" class="card-img"> 
+              <img src="https://images.unsplash.com/photo-1555617766-c94804975da3?auto=format&fit=crop&w=800" class="card-img" loading="lazy"> 
               <div class="card-content"><h3>Hardware & OS</h3><p>Windows 11 optimization, system deep-cleans, and high-performance component sourcing.</p></div> 
           </div> 
           <div class="card reveal"> 
-              <img src="https://images.unsplash.com/photo-1746005847013-13291f371f0f?q=80&w=1170&auto=format&fit=crop" class="card-img"> 
+              <img src="https://images.unsplash.com/photo-1746005847013-13291f371f0f?q=80&w=1170&auto=format&fit=crop" class="card-img" loading="lazy"> 
               <div class="card-content"><h3>Phone Repair</h3><p>Precision screen replacement, battery health restoration, and charging port diagnostics.</p></div> 
           </div> 
           <div class="card reveal"> 
-              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800" class="card-img"> 
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800" class="card-img" loading="lazy"> 
               <div class="card-content"><h3>Specialized Tech</h3><p>Diagnostics for industrial sensors and specialized scanner computer units.</p></div> 
           </div> 
           <div class="card reveal"> 
-              <img src="https://www.universalcreativesolutions.com/Blog%20Images/how%20technology%20consulting%20works.jpg" class="card-img"> 
+              <img src="https://www.universalcreativesolutions.com/Blog%20Images/how%20technology%20consulting%20works.jpg" class="card-img" loading="lazy"> 
               <div class="card-content"><h3>IT Consultancy</h3><p>Infrastructure scaling, procurement strategy, and digital workflow optimization.</p></div> 
           </div> 
           <div class="card reveal"> 
-              <img src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?q=80&w=800" class="card-img"> 
+              <img src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?q=80&w=800" class="card-img" loading="lazy"> 
               <div class="card-content"><h3>Printer Specialist</h3><p>Mechanical restoration for thermal, laser, and industrial ID printers.</p></div> 
           </div> 
           <div class="card reveal"> 
-              <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800" class="card-img"> 
+              <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800" class="card-img" loading="lazy"> 
               <div class="card-content"><h3>Network Shares</h3><p>Office data configuration and security auditing for seamless collaboration.</p></div> 
           </div> 
           <div class="card reveal"> 
-              <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800" class="card-img"> 
+              <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800" class="card-img" loading="lazy"> 
               <div class="card-content"><h3>System Integrity</h3><p>Surge protection audits and deep virus eradication to prevent downtime.</p></div> 
           </div> 
      </div> 
@@ -323,11 +342,24 @@
  </footer> 
 
  <script> 
-     // DEVELOPER BISCUIT (F12)
-     console.log("%c K.A.T.S. SYSTEM ACCESS %c", "color: #00ff88; font-size: 25px; font-weight: bold; background: #000; padding: 10px; border: 2px solid #00ff88;", "");
-     console.log("%c [AUTH]: Engineering clearance granted. Welcome to the back-end. %c", "color: #00d2ff; font-family: monospace; font-size: 14px;", "");
-     console.log("%c [CMD]: 'npm run excellence' initiated... %c", "color: #ffffff; background: #333;");
+     // LOADER SIMULATION
+     window.addEventListener('load', () => {
+        const progress = document.getElementById('load-progress');
+        let width = 0;
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                document.getElementById('loader-wrapper').style.opacity = '0';
+                setTimeout(() => { document.getElementById('loader-wrapper').style.display = 'none'; }, 500);
+            } else {
+                width += Math.random() * 15;
+                if(width > 100) width = 100;
+                progress.style.width = width + '%';
+            }
+        }, 100);
+     });
 
+     // CLOCK
      function updateClock() {
         const now = new Date();
         const options = { timeZone: 'America/Jamaica', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
@@ -337,18 +369,15 @@
      updateClock();
 
      function toggleTerminal() { document.body.classList.toggle('terminal-mode'); }
-
      function openTos() { document.getElementById("tosModal").style.display = "block"; } 
      function closeTos() { document.getElementById("tosModal").style.display = "none"; } 
-     window.onclick = function(event) { 
-         if (event.target == document.getElementById("tosModal")) { closeTos(); } 
-     } 
+     window.onclick = function(event) { if (event.target == document.getElementById("tosModal")) { closeTos(); } } 
 
+     // CANVAS
      const canvas = document.getElementById('bg-canvas'); 
      const ctx = canvas.getContext('2d'); 
      let particles = []; 
      let mouse = { x: null, y: null };
-
      window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
 
      function init() { 
@@ -370,16 +399,10 @@
          ctx.fillStyle = '#00d2ff'; 
          particles.forEach(p => { 
              p.x += p.vx; p.y += p.vy; 
-
-             // INTERACTIVE MOUSE GRAVITY
              let dx = mouse.x - p.x;
              let dy = mouse.y - p.y;
              let distance = Math.sqrt(dx*dx + dy*dy);
-             if (distance < 150) {
-                 p.x -= dx/20;
-                 p.y -= dy/20;
-             }
-
+             if (distance < 150) { p.x -= dx/20; p.y -= dy/20; }
              if (p.x < 0 || p.x > canvas.width) p.vx *= -1; 
              if (p.y < 0 || p.y > canvas.height) p.vy *= -1; 
              ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill(); 
@@ -389,6 +412,7 @@
      window.addEventListener('resize', init); 
      init(); animate(); 
 
+     // REVEAL ON SCROLL
      function reveal() { 
          var reveals = document.querySelectorAll(".reveal"); 
          for (var i = 0; i < reveals.length; i++) { 
@@ -396,13 +420,8 @@
              var elementTop = reveals[i].getBoundingClientRect().top; 
              if (elementTop < windowHeight - 50) { reveals[i].classList.add("active"); } 
          }
-         
          const scrollBtn = document.getElementById("scrollTop");
-         if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
-             scrollBtn.style.display = "block";
-         } else {
-             scrollBtn.style.display = "none";
-         }
+         if (document.documentElement.scrollTop > 500) { scrollBtn.style.display = "block"; } else { scrollBtn.style.display = "none"; }
      } 
      window.onscroll = reveal; 
      reveal(); 
