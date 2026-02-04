@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - SYSTEM ERROR | K.A.T.S</title>
+    <style>
+        body {
+            background-color: #010409;
+            color: #00ff88;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+        .error-container {
+            border: 2px solid #ff3333;
+            padding: 40px;
+            background: rgba(255, 0, 0, 0.05);
+            box-shadow: 0 0 20px rgba(255, 51, 51, 0.2);
+            max-width: 600px;
+        }
+        h1 { font-size: 5rem; margin: 0; color: #ff3333; }
+        p { font-size: 1.2rem; letter-spacing: 1px; }
+        .glitch { animation: glitch 1s infinite; }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        .btn-return {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 30px;
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-return:hover {
+            background: #00ff88;
+            color: #000;
+            box-shadow: 0 0 20px #00ff88;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1 class="glitch">404</h1>
+        <p>[CRITICAL ERROR]: REQUESTED SECTOR NOT FOUND</p>
+        <p style="color: #666; font-size: 0.9rem;">The path you are attempting to access is corrupted or does not exist in the K.A.T.S directory.</p>
+        <a href="/" class="btn-return">REBOOT TO MAIN TERMINAL</a>
+    </div>
+</body>
+</html>
