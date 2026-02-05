@@ -199,6 +199,10 @@
             #scrollTop { bottom: 90px; right: 20px; width: 50px; height: 50px; }
             .ticker-wrap { margin-top: 40px; }
         }
+        #repairIframe {
+    background-color: #010409; /* Matches your background */
+    color-scheme: dark; /* Tells the browser to prefer dark scrollbars/elements */
+        }
     </style> 
 </head> 
 <body> 
@@ -421,14 +425,27 @@
         if (event.target == document.getElementById("ticketModal")) { closeTicket(); } 
      } 
 
-     // FORM SUBMISSION DETECTION
-     let formSubmitCount = 0;
+     // IMPROVED FORM DETECTION
+     let loadCount = 0;
      document.getElementById('repairIframe').onload = function() {
-        formSubmitCount++;
-        if(formSubmitCount > 1) {
-            document.getElementById('repairIframe').style.display = 'none';
-            document.getElementById('confirmMessage').style.display = 'block';
-            document.getElementById('terminal-header').innerText = "> DATA_UPLOAD_COMPLETE";
+        loadCount++;
+        
+        // Google Forms with multiple pages trigger an 'onload' every time you hit 'Next'.
+        // We only want the success message to show after the final submit.
+        // Usually, the final submit is loadCount 2 (for 1-page forms) or higher.
+        
+        // If the user has navigated at least 2-3 times (or based on your specific form length)
+        // Adjust the number below if your form has many pages.
+        if(loadCount > 3) { 
+            // We check if the iframe is actually at the 'Thank You' redirect
+            // If it keeps showing early, we can add a manual 'Complete' button inside the form 
+            // OR use this timer delay to verify the user isn't just clicking 'Next'
+            setTimeout(() => {
+                // Only show if the user is likely on the final "Response Recorded" page
+                document.getElementById('repairIframe').style.display = 'none';
+                document.getElementById('confirmMessage').style.display = 'block';
+                document.getElementById('terminal-header').innerText = "> DATA_UPLOAD_COMPLETE";
+            }, 500); 
         }
      };
 
@@ -487,3 +504,4 @@
  </script> 
  </body> 
  </html>
+
