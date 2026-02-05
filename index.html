@@ -352,24 +352,17 @@
  <div id="ticketModal" class="modal"> 
     <div class="modal-content"> 
          <div class="modal-header"> 
-             <h2 id="terminal-header" style="margin:0; letter-spacing:2px; color: var(--neon-green); font-family: monospace;">> KATS_TICKET_PORTAL_V2.0</h2> 
+             <h2 style="margin:0; letter-spacing:2px; color: var(--neon-green); font-family: monospace;">> KATS_TICKET_PORTAL_V2.0</h2> 
              <span class="close-btn" onclick="closeTicket()">&times;</span> 
          </div> 
          
-         <iframe id="repairIframe" src="https://docs.google.com/forms/d/e/1FAIpQLSfUoqHksgjwiqbakWZ7NinuDbGsA-fAuaxGOQllr9fkR8Nh6g/viewform?embedded=true">Loading…</iframe>
-         
-         <div id="confirmMessage" style="display:none;" class="form-overlay-msg">
-            <i class="fas fa-check-double"></i>
-            <h3 style="color: var(--light-blue);">TRANSMISSION SUCCESSFUL</h3>
-            <p style="color:#fff; font-size:1.1rem;">Thank you for your service request! We've received your details and will contact you via phone or email within 24 hours to confirm your appointment or provide a quote.</p>
-            <div style="background: rgba(0, 210, 255, 0.1); padding: 15px; border-left: 4px solid var(--light-blue); margin: 20px 0; text-align: left;">
-                <p><strong>For Drop-off Appointments:</strong> Once confirmed, we will provide our address. Please call us upon arrival.</p>
-            </div>
-            <p style="color: var(--neon-green); font-family: monospace;">SYSTEM STATUS: AWAITING ENGINEER RESPONSE...</p>
-            <button class="btn-glow" style="margin-top:20px; padding: 10px 40px;" onclick="closeTicket()">CLOSE TERMINAL</button>
-         </div>
+         <iframe id="repairIframe" 
+                 src="https://docs.google.com/forms/d/e/1FAIpQLSfUoqHksgjwiqbakWZ7NinuDbGsA-fAuaxGOQllr9fkR8Nh6g/viewform?embedded=true"
+                 style="width: 100%; height: 75vh; border: none; border-radius: 10px; background: #fff;">
+                 Loading…
+         </iframe>
     </div> 
- </div> 
+ </div>
 
  <footer> 
      <p>© 2026 (K.A.T.S) K. ALLEN TECH SERVICES | KINGSTON, JAMAICA</p> 
@@ -425,30 +418,19 @@
         if (event.target == document.getElementById("ticketModal")) { closeTicket(); } 
      } 
 
-     // IMPROVED FORM DETECTION
-     let loadCount = 0;
-     document.getElementById('repairIframe').onload = function() {
-        loadCount++;
-        
-        // Google Forms with multiple pages trigger an 'onload' every time you hit 'Next'.
-        // We only want the success message to show after the final submit.
-        // Usually, the final submit is loadCount 2 (for 1-page forms) or higher.
-        
-        // If the user has navigated at least 2-3 times (or based on your specific form length)
-        // Adjust the number below if your form has many pages.
-        if(loadCount > 3) { 
-            // We check if the iframe is actually at the 'Thank You' redirect
-            // If it keeps showing early, we can add a manual 'Complete' button inside the form 
-            // OR use this timer delay to verify the user isn't just clicking 'Next'
-            setTimeout(() => {
-                // Only show if the user is likely on the final "Response Recorded" page
-                document.getElementById('repairIframe').style.display = 'none';
-                document.getElementById('confirmMessage').style.display = 'block';
-                document.getElementById('terminal-header').innerText = "> DATA_UPLOAD_COMPLETE";
-            }, 500); 
-        }
-     };
+     function openTicket() { 
+        document.getElementById("ticketModal").style.display = "block"; 
+        document.body.style.overflow = "hidden"; // Locks the background scroll
+     }
 
+     function closeTicket() { 
+        document.getElementById("ticketModal").style.display = "none"; 
+        document.body.style.overflow = "auto"; // Unlocks the background
+        
+        // This line resets the form so if they open it again, it starts at page 1
+        document.getElementById("repairIframe").src = document.getElementById("repairIframe").src;
+     }
+     
      // CANVAS PARTICLES
      const canvas = document.getElementById('bg-canvas'); 
      const ctx = canvas.getContext('2d'); 
@@ -504,4 +486,5 @@
  </script> 
  </body> 
  </html>
+
 
