@@ -173,31 +173,16 @@
         .reveal.active { opacity: 1; transform: translateY(0); } 
 
         /* MODAL STYLING */
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.92); backdrop-filter: blur(12px); } 
-        .modal-content { background: var(--card-glass); margin: 5% auto; padding: 35px; border: 1px solid var(--light-blue); width: 85%; max-width: 750px; border-radius: 20px; color: #ccc; line-height: 1.6; max-height: 85vh; overflow-y: auto; box-shadow: 0 0 40px rgba(0, 210, 255, 0.3); } 
+        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.92); backdrop-filter: blur(12px); overflow-y: auto; } 
+        .modal-content { background: var(--card-glass); margin: 50px auto; padding: 35px; border: 1px solid var(--light-blue); width: 90%; max-width: 800px; border-radius: 20px; color: #ccc; box-shadow: 0 0 40px rgba(0, 210, 255, 0.3); position: relative; } 
         .modal-header { color: var(--light-blue); border-bottom: 1px solid rgba(0, 210, 255, 0.2); padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; } 
         .close-btn { color: #fff; font-size: 28px; font-weight: bold; cursor: pointer; } 
         .close-btn:hover { color: var(--neon-green); } 
 
-        /* TICKET TERMINAL FORM STYLES */
-        .terminal-form-container { display: flex; flex-direction: column; gap: 20px; }
-        .terminal-form-container iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.05);
-        }
-        .form-overlay-msg {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 210, 255, 0.1);
-            border: 1px solid var(--light-blue);
-            border-radius: 10px;
-            margin-top: 15px;
-            font-family: monospace;
-            color: var(--neon-green);
-        }
+        /* TERMINAL TICKET STYLES */
+        #repairIframe { width: 100%; height: 75vh; border: none; border-radius: 10px; background: rgba(255,255,255,0.02); }
+        .form-overlay-msg { text-align: center; padding: 40px 20px; border: 2px solid var(--neon-green); border-radius: 20px; background: rgba(0, 255, 136, 0.05); }
+        .form-overlay-msg i { font-size: 4rem; color: var(--neon-green); margin-bottom: 20px; }
 
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; letter-spacing: 3px; }
@@ -361,25 +346,26 @@
  </div> 
 
  <div id="ticketModal" class="modal"> 
-    <div class="modal-content" style="max-width: 850px;"> 
+    <div class="modal-content"> 
          <div class="modal-header"> 
-             <h2 style="margin:0; letter-spacing:2px;"><i class="fas fa-microchip"></i> KATS_REPAIR_INITIATOR_V2.0</h2> 
+             <h2 id="terminal-header" style="margin:0; letter-spacing:2px; color: var(--neon-green); font-family: monospace;">> KATS_TICKET_PORTAL_V2.0</h2> 
              <span class="close-btn" onclick="closeTicket()">&times;</span> 
          </div> 
-         <div class="terminal-form-container">
-            <p style="color: var(--light-blue); font-family: monospace; font-size: 0.9rem;">[SYSTEM]: Loading secure bridge to engineering database...</p>
-            <iframe id="repairIframe" src="https://docs.google.com/forms/d/e/1FAIpQLSeFhW2x7n9nC5w2j7n8m4j7n8m4j7n8m4j7n8m4j/viewform?embedded=true">Loading…</iframe>
-            
-            <div id="confirmMessage" style="display:none;" class="form-overlay-msg">
-                <h3 style="color: var(--light-blue);">ACCESS GRANTED: REQUEST LOGGED</h3>
-                <p>Thank you for your service request! We've received your details and will contact you via phone or email within 24 hours to confirm your appointment or provide a quote.</p>
-                <p><strong>For Drop-off Appointments:</strong> Once your appointment is confirmed, we will provide our address. Please call us upon your arrival at the confirmed time.</p>
-                <p style="border-top: 1px solid rgba(0,255,136,0.3); padding-top: 10px;">We look forward to bringing your device back to life!</p>
-                <button class="btn-glow" style="padding: 10px 30px; font-size: 0.9rem; margin-top: 15px;" onclick="closeTicket()">RETURN TO DASHBOARD</button>
+         
+         <iframe id="repairIframe" src="https://docs.google.com/forms/d/e/1FAIpQLSfUoqHksgjwiqbakWZ7NinuDbGsA-fAuaxGOQllr9fkR8Nh6g/viewform?embedded=true">Loading…</iframe>
+         
+         <div id="confirmMessage" style="display:none;" class="form-overlay-msg">
+            <i class="fas fa-check-double"></i>
+            <h3 style="color: var(--light-blue);">TRANSMISSION SUCCESSFUL</h3>
+            <p style="color:#fff; font-size:1.1rem;">Thank you for your service request! We've received your details and will contact you via phone or email within 24 hours to confirm your appointment or provide a quote.</p>
+            <div style="background: rgba(0, 210, 255, 0.1); padding: 15px; border-left: 4px solid var(--light-blue); margin: 20px 0; text-align: left;">
+                <p><strong>For Drop-off Appointments:</strong> Once confirmed, we will provide our address. Please call us upon arrival.</p>
             </div>
+            <p style="color: var(--neon-green); font-family: monospace;">SYSTEM STATUS: AWAITING ENGINEER RESPONSE...</p>
+            <button class="btn-glow" style="margin-top:20px; padding: 10px 40px;" onclick="closeTicket()">CLOSE TERMINAL</button>
          </div>
     </div> 
-</div> 
+ </div> 
 
  <footer> 
      <p>© 2026 (K.A.T.S) K. ALLEN TECH SERVICES | KINGSTON, JAMAICA</p> 
@@ -415,20 +401,19 @@
 
      // MODAL CONTROLS
      function toggleTerminal() { document.body.classList.toggle('terminal-mode'); }
-     
      function openTos() { document.getElementById("tosModal").style.display = "block"; } 
      function closeTos() { document.getElementById("tosModal").style.display = "none"; } 
 
      function openTicket() { 
         document.getElementById("ticketModal").style.display = "block"; 
-        // Force refresh iframe to ensure it's clean
-        const ifr = document.getElementById('repairIframe');
-        ifr.src = "https://docs.google.com/forms/d/e/1FAIpQLSeE-r87-u-J7Wj2mS-V_X0yM5p_T9UuGvS-V_X0yM5p_T9UuGvS/viewform?embedded=true";
+        document.body.style.overflow = "hidden";
+        document.getElementById("repairIframe").style.display = "block";
+        document.getElementById("confirmMessage").style.display = "none";
+        document.getElementById("terminal-header").innerText = "> KATS_TICKET_PORTAL_V2.0";
      }
      function closeTicket() { 
         document.getElementById("ticketModal").style.display = "none"; 
-        document.getElementById("repairIframe").style.display = "block";
-        document.getElementById("confirmMessage").style.display = "none";
+        document.body.style.overflow = "auto";
      }
 
      window.onclick = function(event) { 
@@ -436,18 +421,18 @@
         if (event.target == document.getElementById("ticketModal")) { closeTicket(); } 
      } 
 
-     // DETECT FORM SUBMISSION (Via iframe load count)
-     let loadCount = 0;
+     // FORM SUBMISSION DETECTION
+     let formSubmitCount = 0;
      document.getElementById('repairIframe').onload = function() {
-        loadCount++;
-        if(loadCount > 1) {
-            // Form has been submitted!
+        formSubmitCount++;
+        if(formSubmitCount > 1) {
             document.getElementById('repairIframe').style.display = 'none';
             document.getElementById('confirmMessage').style.display = 'block';
+            document.getElementById('terminal-header').innerText = "> DATA_UPLOAD_COMPLETE";
         }
      };
 
-     // CANVAS
+     // CANVAS PARTICLES
      const canvas = document.getElementById('bg-canvas'); 
      const ctx = canvas.getContext('2d'); 
      let particles = []; 
