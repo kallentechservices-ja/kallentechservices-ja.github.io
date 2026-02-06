@@ -55,126 +55,114 @@
     <style> 
     :root {  
         --dark-bg: #010409; --light-blue: #00d2ff; --neon-green: #00ff88; --neon-pink: #ff0055; --neon-gold: #ffcc00;
-        --card-glass: rgba(13, 17, 23, 0.85); 
+        --card-glass: rgba(13, 17, 23, 0.85); --accent: var(--light-blue);
     } 
 
     /* PRELOADER */
-    #loader-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark-bg); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.5s; }
-    .loader-bar { width: 200px; height: 2px; background: rgba(255,255,255,0.1); position: relative; margin-top: 15px; }
-    .loader-progress { position: absolute; height: 100%; background: var(--light-blue); width: 0%; transition: 0.3s; box-shadow: 0 0 10px var(--light-blue); }
+    #loader-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark-bg); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .loader-bar { width: 250px; height: 3px; background: rgba(255,255,255,0.05); position: relative; margin-top: 20px; overflow: hidden; border-radius: 10px; }
+    .loader-progress { position: absolute; height: 100%; background: linear-gradient(90deg, transparent, var(--light-blue), transparent); width: 0%; transition: 0.4s; box-shadow: 0 0 15px var(--light-blue); }
 
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--dark-bg); }
     ::-webkit-scrollbar-thumb { background: linear-gradient(var(--light-blue), var(--neon-green)); border-radius: 10px; }
 
-    /* OVERRIDE TERMINAL MODES */
-    body.terminal-mode { --dark-bg: #000b00; --light-blue: #00ff41; --neon-green: #00ff41; }
-    body.pink-mode { --light-blue: var(--neon-pink); --neon-green: #fff; --dark-bg: #1a000d; }
-    body.gold-mode { --light-blue: var(--neon-gold); --neon-green: #ffcc00; --dark-bg: #0d0d00; }
+    /* MODES */
+    body.terminal-mode { --dark-bg: #000b00; --accent: #00ff41; --light-blue: #00ff41; --neon-green: #00ff41; }
+    body.pink-mode { --accent: var(--neon-pink); --light-blue: var(--neon-pink); --neon-green: #fff; --dark-bg: #100008; }
+    body.gold-mode { --accent: var(--neon-gold); --light-blue: var(--neon-gold); --neon-green: #ffcc00; --dark-bg: #0a0a00; }
 
     .terminal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.06)); background-size: 100% 3px, 3px 100%; z-index: 9998; pointer-events: none; }
-    body.terminal-mode .terminal-overlay { display: block; opacity: 0.2; }
+    body.terminal-mode .terminal-overlay { display: block; opacity: 0.3; }
 
-    body { margin: 0; padding: 0; background-color: var(--dark-bg); color: #ffffff; font-family: 'Segoe UI', Roboto, sans-serif; overflow-x: hidden; cursor: crosshair; background-image: linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px); background-size: 50px 50px; transition: 0.4s ease; } 
-    #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; } 
+    body { margin: 0; padding: 0; background-color: var(--dark-bg); color: #ffffff; font-family: 'Segoe UI', Roboto, sans-serif; overflow-x: hidden; cursor: crosshair; background-image: radial-gradient(circle at 2px 2px, rgba(0, 210, 255, 0.07) 1px, transparent 0); background-size: 40px 40px; transition: background 0.6s ease, color 0.4s; } 
+    #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; } 
 
     /* DOCK BOX */
-    .side-dock { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 2000; } 
-    .side-tile { width: 50px; height: 50px; background: #0d1117; border: 1px solid rgba(0, 210, 255, 0.4); border-radius: 12px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; position: relative; } 
+    .side-dock { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 2000; } 
+    .side-tile { width: 55px; height: 55px; background: rgba(13, 17, 23, 0.8); border: 1px solid rgba(0, 210, 255, 0.3); border-radius: 15px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); backdrop-filter: blur(10px); } 
+    .side-tile:hover { transform: scale(1.1) translateX(-5px); border-color: var(--accent); box-shadow: 0 0 20px rgba(0, 210, 255, 0.2); }
     
-    /* ENHANCED OVERRIDE BUTTON */
     .side-tile[data-label="Override"] { 
         background: linear-gradient(45deg, var(--neon-pink), var(--light-blue), var(--neon-green), var(--neon-gold)); 
-        background-size: 300% 300%;
-        animation: cyberShift 4s ease infinite; 
+        background-size: 400% 400%;
+        animation: cyberShift 5s ease infinite; 
         border: 2px solid #fff; 
-        box-shadow: 0 0 15px rgba(255,255,255,0.3);
     }
     @keyframes cyberShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-    .side-tile i { color: #ffffff !important; font-size: 24px; } 
-    .side-tile::before { content: attr(data-label); position: absolute; right: 60px; background: var(--light-blue); color: #000; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; opacity: 0; transition: 0.3s; pointer-events: none; white-space: nowrap; } 
-    .side-tile:hover::before { opacity: 1; right: 70px; } 
+    .side-tile i { color: #ffffff; font-size: 22px; } 
 
-    #scrollTop { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: var(--neon-green); color: #000; border: none; border-radius: 50%; font-size: 24px; cursor: pointer; display: none; z-index: 2500; box-shadow: 0 0 20px var(--neon-green); }
+    #scrollTop { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: var(--accent); color: #000; border: none; border-radius: 50%; font-size: 24px; cursor: pointer; display: none; z-index: 2500; box-shadow: 0 0 20px var(--accent); transition: 0.3s; }
 
-    header { padding: 40px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; } 
-    .logo-container { position: relative; width: 160px; height: 160px; margin: 10px auto; } 
-    .logo-img { width: 100%; border-radius: 50%; border: 4px solid var(--light-blue); background: white; z-index: 2; position: relative; } 
-    .scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--neon-green); box-shadow: 0 0 15px var(--neon-green); z-index: 3; animation: scan 3s linear infinite; } 
-    @keyframes scan { 0% { top: 0; opacity: 0; } 100% { top: 100%; opacity: 0; } } 
-    .status-badge { display: inline-flex; align-items: center; background: rgba(0, 255, 136, 0.1); color: var(--neon-green); padding: 10px 20px; border-radius: 50px; border: 1px solid var(--neon-green); font-weight: 900; letter-spacing: 2px; font-size: 0.8rem; } 
+    /* HEADER & GLITCH */
+    header { padding: 60px 20px; text-align: center; } 
+    .logo-container { position: relative; width: 170px; height: 170px; margin: 0 auto 20px; } 
+    .logo-img { width: 100%; border-radius: 50%; border: 3px solid var(--accent); background: white; position: relative; z-index: 5; transition: 0.3s; }
+    .logo-container:hover .logo-img { transform: scale(1.05) rotate(5deg); }
+    
+    .scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(transparent, var(--accent), transparent); opacity: 0.2; pointer-events: none; z-index: 6; animation: scanMove 4s linear infinite; } 
+    @keyframes scanMove { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
 
-    h1 { margin: 15px 0 0; font-size: clamp(2rem, 8vw, 3.8rem); font-weight: 900; letter-spacing: 6px; } 
-    .ticker-wrap { width:100%; overflow:hidden; background:rgba(0,0,0,0.5); border-top:1px solid var(--light-blue); border-bottom:1px solid var(--light-blue); margin-top:25px; }
-    .ticker { display:inline-block; white-space:nowrap; padding:12px 0; animation: marquee 35s linear infinite; color:var(--neon-green); font-family:monospace; }
+    .status-badge { display: inline-flex; align-items: center; background: rgba(0, 255, 136, 0.05); color: var(--neon-green); padding: 8px 20px; border-radius: 50px; border: 1px solid var(--neon-green); font-weight: 900; letter-spacing: 3px; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 20px; } 
+
+    h1 { margin: 0; font-size: clamp(2.5rem, 10vw, 4.5rem); font-weight: 950; letter-spacing: -2px; line-height: 0.9; text-transform: uppercase; background: linear-gradient(to bottom, #fff 50%, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.3)); } 
+
+    .ticker-wrap { width:100%; overflow:hidden; background:rgba(0,0,0,0.8); border-top:1px solid rgba(0, 210, 255, 0.2); border-bottom:1px solid rgba(0, 210, 255, 0.2); margin-top:40px; backdrop-filter: blur(5px); }
+    .ticker { display:inline-block; white-space:nowrap; padding:15px 0; animation: marquee 40s linear infinite; color:var(--accent); font-family: 'Courier New', monospace; font-weight: bold; font-size: 0.9rem; }
     @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 10px 20px 80px; } 
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; } 
-    .card { background: var(--card-glass); border: 1px solid rgba(0, 210, 255, 0.15); border-radius: 20px; overflow: hidden; backdrop-filter: blur(10px); transition: 0.3s; } 
-    .card:hover { transform: translateY(-10px); border-color: var(--light-blue); }
-    .card-img { width: 100%; height: 200px; object-fit: cover; }
-    .card-content { padding: 20px; }
-    .card-content h3 { color: var(--light-blue); margin: 0 0 10px; }
+    /* CONTENT BLOCKS */
+    .container { max-width: 1250px; margin: 0 auto; padding: 40px 20px; } 
+    
+    .legacy-box { background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); padding: 60px 40px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 100px; position: relative; overflow: hidden; }
+    .legacy-box::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(from 0deg, transparent, var(--accent), transparent 30%); animation: rotate 10s linear infinite; opacity: 0.05; z-index: -1; }
+    @keyframes rotate { 100% { transform: rotate(360deg); } }
 
-    .log-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 30px; } 
-    .log-card { background: rgba(255,255,255,0.03); padding: 20px; border-left: 4px solid var(--neon-green); border-radius: 0 12px 12px 0; } 
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; } 
+    .card { background: var(--card-glass); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; overflow: hidden; transition: 0.4s; position: relative; } 
+    .card:hover { transform: translateY(-12px) scale(1.02); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .card-img { width: 100%; height: 220px; object-fit: cover; filter: grayscale(40%); transition: 0.5s; }
+    .card:hover .card-img { filter: grayscale(0%); }
+    .card-content { padding: 25px; }
+    .card-content h3 { color: var(--accent); margin: 0 0 12px; font-size: 1.4rem; letter-spacing: 1px; }
+    .card-content p { color: #aaa; line-height: 1.6; font-size: 0.95rem; }
 
-    /* FIXED COMMAND CENTER FOR FULLSCREEN */
-    .contact-hub { background: rgba(255,255,255,0.02); padding: 60px 30px; border-radius: 30px; border: 1px solid var(--light-blue); text-align: center; margin-top: 80px; } 
-    .hub-list { 
-        max-width: 900px; 
-        margin: 40px auto; 
-        display: grid; 
-        grid-template-columns: repeat(2, 1fr); /* 2 Columns on Desktop */
-        gap: 15px; 
-    } 
-    .hub-row { 
-        background: rgba(255,255,255,0.05); 
-        padding: 15px 20px; 
-        border-radius: 12px; 
-        text-decoration: none; 
-        color: #fff; 
-        display: flex; 
-        align-items: center; 
-        gap: 15px;
-        border: 1px solid rgba(0, 210, 255, 0.1); 
-        transition: 0.3s; 
-    } 
-    .hub-row:hover { border-color: var(--light-blue); background: rgba(0, 210, 255, 0.1); transform: scale(1.02); }
-    .hub-row i { color: var(--light-blue); font-size: 1.2rem; min-width: 25px; }
-    .hub-row .label { color: var(--neon-green); font-weight: bold; font-size: 0.7rem; border: 1px solid var(--neon-green); padding: 2px 8px; border-radius: 4px; text-transform: uppercase; white-space: nowrap; }
-    .hub-row .detail { font-family: monospace; font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; }
+    .log-card { background: rgba(255,255,255,0.02); padding: 25px; border-left: 4px solid var(--accent); border-radius: 4px 16px 16px 4px; transition: 0.3s; }
+    .log-card:hover { background: rgba(255,255,255,0.05); transform: translateX(10px); }
 
-    .btn-glow { background: var(--light-blue); color: #000; padding: 20px 60px; border-radius: 12px; text-decoration: none; font-weight: 900; font-size: 1.1rem; display: inline-block; cursor: pointer; border: none; box-shadow: 0 0 15px var(--light-blue); margin: 30px 0; }
+    /* COMMAND CENTER GRID */
+    .contact-hub { background: #000; padding: 80px 40px; border-radius: 40px; border: 1px solid var(--accent); margin-top: 100px; box-shadow: inset 0 0 50px rgba(0, 210, 255, 0.1); } 
+    .hub-list { max-width: 1000px; margin: 40px auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; } 
+    .hub-row { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; text-decoration: none; color: #fff; display: flex; align-items: center; gap: 20px; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; } 
+    .hub-row:hover { background: var(--accent); color: #000; border-color: #fff; }
+    .hub-row:hover .label { border-color: #000; color: #000; }
+    .hub-row:hover i { color: #000; }
+    
+    .hub-row i { color: var(--accent); font-size: 1.4rem; transition: 0.3s; }
+    .hub-row .label { color: var(--neon-green); font-weight: 800; font-size: 0.65rem; border: 1px solid var(--neon-green); padding: 4px 10px; border-radius: 6px; text-transform: uppercase; }
+    .hub-row .detail { font-family: 'Courier New', monospace; font-weight: bold; }
 
-    .modal { display: none; position: fixed; z-index: 9000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); backdrop-filter: blur(12px); overflow-y: auto; } 
-    .modal-content { background: #0d1117; margin: 30px auto; padding: 30px; border: 2px solid var(--light-blue); width: 92%; max-width: 900px; border-radius: 20px; position: relative; } 
-    .close-btn { position: absolute; right: 20px; top: 20px; font-size: 35px; cursor: pointer; color: #fff; z-index: 10; }
-    #repairIframe { width: 100%; height: 75vh; border: none; border-radius: 10px; background: #fff; }
+    .btn-glow { background: var(--accent); color: #000; padding: 24px 80px; border-radius: 50px; text-decoration: none; font-weight: 900; font-size: 1.2rem; display: inline-block; cursor: pointer; border: none; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); margin: 40px 0; transition: 0.4s; text-transform: uppercase; letter-spacing: 2px; }
+    .btn-glow:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 0 50px var(--accent); }
 
-    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s all ease; } 
-    .reveal.active { opacity: 1; transform: translateY(0); } 
-
-    .footer-socials { display: flex; justify-content: center; gap: 20px; margin-top: 30px; font-size: 28px; }
-    .footer-socials a { color: #fff; transition: 0.3s; }
-    .footer-socials a:hover { color: var(--light-blue); transform: translateY(-5px); }
+    .modal-content { background: #010409; border: 2px solid var(--accent); box-shadow: 0 0 100px rgba(0,0,0,0.8); }
 
     @media (max-width: 900px) {
-        .hub-list { grid-template-columns: 1fr; } /* Stack on smaller screens */
+        .hub-list { grid-template-columns: 1fr; }
+        .legacy-box { padding: 40px 20px; }
     }
     @media (max-width: 768px) {
-        h1 { font-size: 2.5rem; }
-        .side-dock { bottom: 0; top: auto; width: 100%; height: 70px; flex-direction: row; left: 0; transform: none; background: #000; border-top: 1px solid var(--light-blue); justify-content: center; }
-        .container { padding: 10px 10px 100px; }
+        .side-dock { bottom: 0; top: auto; width: 100%; height: 75px; flex-direction: row; left: 0; transform: none; background: rgba(0,0,0,0.9); border-top: 1px solid var(--accent); justify-content: center; align-items: center; }
+        .container { padding-bottom: 120px; }
     }
     </style>
 </head> 
 <body> 
 
  <div id="loader-wrapper">
-    <div style="font-family: monospace; color: var(--neon-green); letter-spacing: 3px; font-weight: bold;">INITIALIZING KATS_OS...</div>
+    <img src="logo.png" width="80" style="filter: brightness(2); margin-bottom: 10px;">
+    <div style="font-family: monospace; color: var(--accent); letter-spacing: 5px; font-weight: bold; font-size: 0.8rem;">SYSTEM_KATS_BOOTING</div>
     <div class="loader-bar"><div class="loader-progress" id="load-progress"></div></div>
  </div>
 
@@ -191,80 +179,79 @@
  </div> 
 
  <header> 
-     <div class="status-badge">FIELD SYSTEMS ACTIVE</div> 
-     <div id="sys-clock" style="font-family: monospace; color: var(--neon-green); margin-top: 10px;"></div> 
+     <div class="status-badge" id="status-text">SYSTEM_STABLE // 0x2A4</div> 
+     <div id="sys-clock" style="font-family: 'Courier New', monospace; color: var(--accent); font-size: 1.1rem; font-weight: bold;"></div> 
      <div class="logo-container"> 
           <div class="scan-line"></div> 
           <img src="logo.png" alt="K. Allen Tech" class="logo-img"> 
      </div> 
      <h1>K. ALLEN TECH</h1> 
-     <p style="color: var(--light-blue); font-weight: 900; letter-spacing: 3px; margin-top: 10px;">FATHER & SON COMPUTER ENGINEERING</p>
+     <p style="color: var(--accent); font-weight: 900; letter-spacing: 5px; margin-top: 15px; opacity: 0.8;">FATHER & SON ENGINEERING</p>
 
      <div class="ticker-wrap">
         <div class="ticker">
-            [SYSTEM LOG]: iMac PSU Restoration... SUCCESS // MacBook Calibration... OK // Industrial Scanner Diagnostic... ACTIVE // Network Audit: ABTAX LTD... DONE // Radiance Oral Care: Maintained // Kingston Ops: ONLINE // Precision Eng: ACTIVE // Field Tech Support: ONLINE //
+            CORE_BOOT: OK // [LOG]: iMac Restoration @ Radiance Oral... COMPLETED // [LOG]: MacBook Logic Fix @ ABTAX... COMPLETED // [LOG]: Network Audit @ Touchline... ACTIVE // PRECISION_HARDWARE_INTEGRITY: 100% // KINGSTON_OPS: ONLINE // 
         </div>
      </div>
  </header> 
 
  <div class="container"> 
-     <div class="reveal" style="background: rgba(255,255,255,0.03); padding: 50px 40px; border-radius: 30px; border: 1px solid rgba(0, 210, 255, 0.15); margin-bottom: 80px; text-align: center; backdrop-filter: blur(8px);"> 
-          <h2 style="color: var(--neon-green); margin-bottom: 25px; letter-spacing: 3px; font-weight: 900;">THE LEGACY: FATHER & SON</h2> 
-          <p style="line-height: 2; color: #ddd; max-width: 950px; margin: 0 auto; font-size: 1.15rem;"> 
-              At KATS, engineering is a family standard. My father is a veteran <span style="color: var(--light-blue); font-weight: 800;">Computer & Electronics Engineer</span> specializing in the precision logic of industrial hardware. Working alongside him, I bring modern <span style="color: var(--light-blue); font-weight: 800;">Computer Engineering</span> expertise... Together, we provide a cross-generational technical mastery Kingston trusts. 
+     <div class="reveal legacy-box"> 
+          <h2 style="color: var(--neon-green); margin-bottom: 30px; letter-spacing: 4px; font-weight: 950; text-transform: uppercase;">The Engineering Legacy</h2> 
+          <p style="line-height: 2.2; color: #eee; max-width: 1000px; margin: 0 auto; font-size: 1.2rem; font-weight: 400;"> 
+              At KATS, engineering is a family standard. Working alongside my father—a veteran <span style="color: var(--accent); font-weight: 800; border-bottom: 2px solid var(--accent);">Electronics Engineer</span>—we combine industrial-grade diagnostic mastery with modern <span style="color: var(--accent); font-weight: 800; border-bottom: 2px solid var(--accent);">Computer Engineering</span>. From complex MacBook logic boards to heavy-duty industrial scanners, we provide the cross-generational technical precision Kingston trusts. 
           </p> 
      </div> 
 
      <div class="services-grid"> 
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1517059224940-d4af9eec41b7?q=80&w=800&auto=format&fit=crop" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Apple Support</h3><p>Specialized iMac and MacBook diagnostics, PSU replacements, and precision display re-sealing.</p></div> 
+              <div class="card-content"><h3>Apple Support</h3><p>MacBook Pro/Air logic board diagnostics, PSU restoration, and VHB display re-sealing to factory spec.</p></div> 
           </div> 
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1555617766-c94804975da3?auto=format&fit=crop&w=800" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Hardware & OS</h3><p>Windows 11 optimization, system deep-cleans, and high-performance component sourcing.</p></div> 
+              <div class="card-content"><h3>Hardware & OS</h3><p>Enterprise-grade Windows 11 deployment, custom PC builds, and system performance auditing.</p></div> 
           </div> 
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1746005847013-13291f371f0f?q=80&w=1170&auto=format&fit=crop" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Phone Repair</h3><p>Precision screen replacement, battery health restoration, and charging port diagnostics.</p></div> 
+              <div class="card-content"><h3>Mobile Diagnostics</h3><p>Precision screen and battery replacements using high-integrity components and sealants.</p></div> 
           </div> 
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Specialized Tech</h3><p>Diagnostics for industrial sensors and specialized scanner computer units.</p></div> 
+              <div class="card-content"><h3>Specialized Tech</h3><p>Industrial scanner repair and logic diagnostics for proprietary hardware systems.</p></div> 
           </div> 
           <div class="card reveal"> 
               <img src="https://www.cyberdb.co/wp-content/uploads/2025/01/How-IT-Consulting-Services-Can-Drive-Business-Growth.jpg" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>IT Consultancy</h3><p>Infrastructure scaling, procurement strategy, and digital workflow optimization for businesses.</p></div> 
+              <div class="card-content"><h3>Consultancy</h3><p>Technical procurement strategy and digital workflow optimization for corporate clients.</p></div> 
           </div>
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?q=80&w=800" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Printer Specialist</h3><p>Mechanical restoration for thermal, laser, and industrial ID printers.</p></div> 
+              <div class="card-content"><h3>Printer Ops</h3><p>Maintenance and mechanical repair for thermal, laser, and industrial ID card printers.</p></div> 
           </div> 
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Network Shares</h3><p>Office data configuration and security auditing for seamless collaboration.</p></div> 
+              <div class="card-content"><h3>Network Shares</h3><p>Secure local data sharing and office server configuration for team environments.</p></div> 
           </div> 
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>System Integrity</h3><p>Surge protection audits and deep virus eradication to prevent downtime.</p></div> 
+              <div class="card-content"><h3>Integrity Audits</h3><p>Surge protection mapping and virus eradication to ensure zero business downtime.</p></div> 
           </div>
      </div> 
 
-     <div class="log-section reveal" style="margin-top: 100px;"> 
-          <h2 style="text-align: center; color: var(--light-blue); letter-spacing: 3px; font-weight: 900;">FIELD LOG HIGHLIGHTS</h2> 
+     <div class="reveal" style="margin-top: 120px;"> 
+          <h2 style="text-align: center; color: var(--accent); letter-spacing: 5px; font-weight: 950; text-transform: uppercase; margin-bottom: 50px;">Verified Field Logs</h2> 
           <div class="log-grid"> 
-              <div class="log-card"><h4>iMac Power Restoration</h4><p>Successful internal PSU replacement and VHB adhesive display re-sealing.</p></div> 
-              <div class="log-card"><h4>Touchline Industries Ltd.</h4><p>Network share deployment & hardware procurement.</p></div> 
-              <div class="log-card"><h4>Radiance Oral Care</h4><p>System cleaning & comprehensive hardware maintenance.</p></div> 
-              <div class="log-card"><h4>Precision Alignment Ltd.</h4><p>Specialized scanner and computer system support.</p></div> 
-              <div class="log-card"><h4>ABTAX Limited</h4><p>Fleet-wide OS upgrades & surge protection audits.</p></div> 
-              <div class="log-card"><h4>Sagility Jamaica</h4><p>Industrial ID printer diagnostics & mechanical repair.</p></div> 
+              <div class="log-card"><h4>iMac Power Restoration</h4><p>Full PSU replacement and internal logic cleaning at Radiance Oral Care.</p></div> 
+              <div class="log-card"><h4>Touchline Industries</h4><p>Network infrastructure deployment and fleet procurement.</p></div> 
+              <div class="log-card"><h4>ABTAX Limited</h4><p>Fleet OS migration and comprehensive surge protection audit.</p></div> 
+              <div class="log-card"><h4>Precision Alignment</h4><p>Diagnostics for specialized alignment scanner systems.</p></div> 
+              <div class="log-card"><h4>Sagility Jamaica</h4><p>Maintenance of high-volume industrial thermal printers.</p></div> 
           </div> 
      </div> 
 
      <div class="contact-hub reveal"> 
-          <h2 style="color: var(--light-blue); letter-spacing: 3px; font-weight: 900;">COMMAND CENTER</h2> 
-          <div class="address-highlight" style="margin-bottom: 20px; font-size: 1.1rem; color: #fff;"> 
+          <h2 style="color: var(--accent); letter-spacing: 5px; font-weight: 950; text-transform: uppercase;">Command Center</h2> 
+          <div style="margin-bottom: 30px; font-size: 1.2rem; font-weight: bold;"> 
               <i class="fas fa-map-marker-alt" style="color: var(--neon-pink);"></i> 39 Grovedale Drive, Kingston 10, Jamaica 
           </div> 
           <div class="hub-list"> 
@@ -274,7 +261,7 @@
               <a href="mailto:kdahc42@gmail.com" class="hub-row"><i class="fas fa-user-shield"></i><span class="label">Tech 1</span><span class="detail">kdahc42@gmail.com</span></a> 
               <a href="mailto:marquino.allen16@gmail.com" class="hub-row"><i class="fas fa-user-cog"></i><span class="label">Tech 2</span><span class="detail">marquino.allen16@gmail.com</span></a> 
           </div> 
-          <button class="btn-glow" onclick="openTicket()">INITIATE REPAIR TICKET</button> 
+          <button class="btn-glow" onclick="openTicket()">Open Repair Ticket</button> 
           <div class="footer-socials"> 
               <a href="https://wa.me/18763833293" target="_blank"><i class="fab fa-whatsapp"></i></a>
               <a href="https://www.facebook.com/share/174szanVGW/" target="_blank"><i class="fab fa-facebook-f"></i></a> 
@@ -287,14 +274,11 @@
  <div id="tosModal" class="modal"> 
     <div class="modal-content" style="border-color: var(--neon-pink);"> 
          <span class="close-btn" onclick="closeTos()">&times;</span> 
-         <h2 style="color: var(--neon-pink); font-family: monospace;">[SYSTEM_LEGAL_ENFORCEMENT]</h2> 
-         <div style="border-left: 3px solid var(--neon-pink); padding-left: 20px; margin-top: 20px;">
-             <h4>0x01. JAMAICAN CONSUMER RIGHTS</h4> 
-             <p>All services are governed by the Consumer Protection Act of Jamaica. Diagnostics must be approved before major hardware restoration begins.</p> 
-             <h4>0x02. DATA PROTECTION (JDPA)</h4> 
-             <p>In compliance with the Jamaica Data Protection Act, client data is handled with maximum encryption.</p> 
-             <h4>0x03. LIEN & ABANDONMENT</h4> 
-             <p>Equipment not collected within 90 days of completion notification will be subject to the Right of Lien and may be liquidated.</p>
+         <h2 style="color: var(--neon-pink); font-family: monospace;">[LEGAL_ENFORCEMENT]</h2> 
+         <div style="border-left: 3px solid var(--neon-pink); padding: 20px; background: rgba(255,0,0,0.02);">
+             <h4>0x01. CONSUMER RIGHTS</h4><p>All services governed by the Consumer Protection Act of Jamaica.</p> 
+             <h4>0x02. DATA POLICY</h4><p>JDPA compliant encryption protocols enforced.</p> 
+             <h4>0x03. LIEN POLICY</h4><p>Equipment not claimed within 90 days subject to liquidation.</p>
          </div>
     </div> 
  </div> 
@@ -302,24 +286,31 @@
  <div id="ticketModal" class="modal"> 
     <div class="modal-content"> 
          <span class="close-btn" onclick="closeTicket()">&times;</span> 
-         <h2 style="color: var(--light-blue); font-family: monospace;">> KATS_TICKET_PORTAL_V2.0</h2> 
+         <h2 style="color: var(--accent); font-family: monospace;">> KATS_PORTAL_v3.0</h2> 
          <iframe id="repairIframe" src="https://docs.google.com/forms/d/e/1FAIpQLSfUoqHksgjwiqbakWZ7NinuDbGsA-fAuaxGOQllr9fkR8Nh6g/viewform?embedded=true">Loading…</iframe>
     </div> 
  </div>
 
- <footer style="text-align: center; padding: 50px 20px; opacity: 0.6; font-size: 0.8rem;">
-    <p>© 2026 (K.A.T.S) K. ALLEN TECH SERVICES | <a href="javascript:void(0)" onclick="openTos()" style="color: var(--light-blue); text-decoration: none;">Legal & Terms</a></p>
+ <footer style="text-align: center; padding: 60px 20px; opacity: 0.5; font-size: 0.8rem; letter-spacing: 2px;">
+    <p>© 2026 K. ALLEN TECH SERVICES | <a href="javascript:void(0)" onclick="openTos()" style="color: var(--accent); text-decoration: none;">TERMS_OF_SERVICE</a></p>
  </footer>
 
  <script> 
      let overrideStep = 0;
      function cycleOverride() {
         const body = document.body;
+        const status = document.getElementById('status-text');
         overrideStep++;
-        if(overrideStep === 1) { body.classList.add('terminal-mode'); }
-        else if(overrideStep === 2) { body.classList.remove('terminal-mode'); body.classList.add('pink-mode'); }
-        else if(overrideStep === 3) { body.classList.remove('pink-mode'); body.classList.add('gold-mode'); }
-        else { body.classList.remove('gold-mode'); overrideStep = 0; }
+        if(overrideStep === 1) { 
+            body.classList.add('terminal-mode'); status.innerText = "OVERRIDE: TERMINAL_ACTIVE";
+        } else if(overrideStep === 2) { 
+            body.classList.remove('terminal-mode'); body.classList.add('pink-mode'); status.innerText = "OVERRIDE: CYBER_NEON";
+        } else if(overrideStep === 3) { 
+            body.classList.remove('pink-mode'); body.classList.add('gold-mode'); status.innerText = "OVERRIDE: INDUSTRIAL_GOLD";
+        } else { 
+            body.classList.remove('gold-mode'); overrideStep = 0; status.innerText = "SYSTEM_STABLE // 0x2A4";
+        }
+        init(); // Refresh background particles
      }
 
      window.addEventListener('load', () => {
@@ -329,19 +320,19 @@
             if (width >= 100) {
                 clearInterval(interval);
                 document.getElementById('loader-wrapper').style.opacity = '0';
-                setTimeout(() => { document.getElementById('loader-wrapper').style.display = 'none'; }, 500);
+                setTimeout(() => { document.getElementById('loader-wrapper').style.display = 'none'; }, 800);
             } else {
-                width += Math.random() * 25;
+                width += Math.random() * 15;
                 if(width > 100) width = 100;
                 progress.style.width = width + '%';
             }
-        }, 120);
+        }, 100);
      });
 
      function updateClock() {
         const now = new Date();
-        const options = { timeZone: 'America/Jamaica', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-        document.getElementById('sys-clock').innerText = "SYS_TIME: " + now.toLocaleTimeString('en-US', options);
+        const options = { timeZone: 'America/Jamaica', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+        document.getElementById('sys-clock').innerText = "JAM_SEC: " + now.toLocaleTimeString('en-US', options);
      }
      setInterval(updateClock, 1000); updateClock();
 
@@ -350,22 +341,22 @@
      function openTos() { document.getElementById("tosModal").style.display = "block"; document.body.style.overflow = "hidden"; }
      function closeTos() { document.getElementById("tosModal").style.display = "none"; document.body.style.overflow = "auto"; }
 
-     window.onclick = function(e) { if (e.target.className === 'modal') { closeTicket(); closeTos(); } }
-
      const canvas = document.getElementById('bg-canvas'); 
      const ctx = canvas.getContext('2d'); 
      let particles = []; 
      function init() { 
          canvas.width = window.innerWidth; canvas.height = window.innerHeight; 
          particles = []; 
-         for (let i = 0; i < 70; i++) { particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4, size: Math.random() * 1.5 }); } 
+         const color = getComputedStyle(document.body).getPropertyValue('--accent').trim();
+         for (let i = 0; i < 80; i++) { particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6, size: Math.random() * 2, color: color }); } 
      } 
      function animate() { 
-         ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#00d2ff'; 
+         ctx.clearRect(0, 0, canvas.width, canvas.height); 
          particles.forEach(p => { 
              p.x += p.vx; p.y += p.vy; 
              if (p.x < 0 || p.x > canvas.width) p.vx *= -1; if (p.y < 0 || p.y > canvas.height) p.vy *= -1; 
-             ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill(); 
+             ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); 
+             ctx.fillStyle = p.color; ctx.fill(); 
          }); 
          requestAnimationFrame(animate); 
      } 
@@ -376,7 +367,7 @@
          for (var i = 0; i < reveals.length; i++) { 
              var windowHeight = window.innerHeight; 
              var elementTop = reveals[i].getBoundingClientRect().top; 
-             if (elementTop < windowHeight - 60) { reveals[i].classList.add("active"); } 
+             if (elementTop < windowHeight - 80) { reveals[i].classList.add("active"); } 
          }
          const scrollBtn = document.getElementById("scrollTop");
          if (document.documentElement.scrollTop > 500) { scrollBtn.style.display = "block"; } else { scrollBtn.style.display = "none"; }
