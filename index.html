@@ -322,29 +322,26 @@
  <div id="tosModal" class="modal"> 
     <div class="modal-content" style="border-color: var(--neon-pink);"> 
          <div class="modal-header"> 
-             <h2 style="margin:0; letter-spacing:2px;">[SYSTEM_LEGAL_ENFORCEMENT]</h2> 
+             <h2 style="background: linear-gradient(90deg, #ff0055, #ffcc00); -webkit-background-clip: text;">[SYSTEM_LEGAL_ENFORCEMENT]</h2> 
              <span class="close-btn" onclick="closeTos()">&times;</span> 
          </div> 
          
-         <div class="tos-section"> 
-             <h4>0x01. DIAGNOSTICS & CONSUMER RIGHTS</h4> 
-             <p>All systems undergo mandatory verification. Per the <strong>Consumer Protection Act of Jamaica</strong>, estimates are provided before major hardware shifts. Clients will be notified of "scope-creep" diagnostics immediately.</p> 
+         <div class="tos-box"> 
+             <h4>0x01. JAMAICAN CONSUMER RIGHTS</h4> 
+             <p>All services are governed by the Consumer Protection Act of Jamaica. Diagnostics must be approved before major hardware restoration begins.</p> 
          </div> 
 
-         <div class="tos-section"> 
+         <div class="tos-box"> 
              <h4>0x02. DATA PROTECTION (JDPA)</h4> 
-             <p>Under the <strong>Jamaica Data Protection Act (JDPA)</strong>, K.A.T.S. operates as a Data Processor. We implement high-level encryption protocols. Backup of sensitive data is the client's responsibility prior to terminal hand-over.</p> 
+             <p>In compliance with the Jamaica Data Protection Act, client data is handled with maximum encryption. KATS is not liable for data loss on unbacked-up drives.</p> 
          </div> 
 
-         <div class="tos-section"> 
-             <h4>0x03. PROCUREMENT & LIENS</h4> 
-             <p>Specialized components (Apple OEM/Industrial) require a deposit. Per Jamaican Common Law, K.A.T.S. reserves the <strong>Right of Lien</strong>. Items not collected within 90 days may be liquidated to recover costs.</p> 
-         </div> 
-
-         <div class="tos-section"> 
-             <h4>0x04. ABANDONMENT PROTOCOL</h4> 
-             <p>Failure to communicate for 60 days following a "Ready for Collection" notice triggers abandonment status. Secure recycling or disposal of data-sensitive components will follow.</p> 
+         <div class="tos-box"> 
+             <h4>0x03. LIEN & ABANDONMENT</h4> 
+             <p>Equipment not collected within 90 days of completion notification will be subject to the Right of Lien and may be liquidated to cover costs.</p> 
          </div>
+    </div> 
+ </div>
          
          <div style="text-align: center; color: var(--neon-pink); font-family: monospace; font-size: 0.7rem; margin-top: 20px;">
              // END OF LINE // AUTH_CODE: KINGSTON_TECH_V2 //
@@ -355,22 +352,16 @@
  <div id="ticketModal" class="modal"> 
     <div class="modal-content"> 
          <div class="modal-header"> 
-             <h2 style="margin:0; letter-spacing:2px; color: var(--neon-green); font-family: monospace;">> KATS_TICKET_PORTAL_V2.0</h2> 
+             <h2>> KATS_TICKET_PORTAL_V2.0</h2> 
              <span class="close-btn" onclick="closeTicket()">&times;</span> 
          </div> 
-         
-         <iframe id="repairIframe" 
-                 src="https://docs.google.com/forms/d/e/1FAIpQLSfUoqHksgjwiqbakWZ7NinuDbGsA-fAuaxGOQllr9fkR8Nh6g/viewform?embedded=true"
-                 style="width: 100%; height: 75vh; border: none; border-radius: 10px; background: #fff;">
-                 Loading…
-         </iframe>
+         <iframe id="repairIframe" src="https://docs.google.com/forms/d/e/1FAIpQLSfUoqHksgjwiqbakWZ7NinuDbGsA-fAuaxGOQllr9fkR8Nh6g/viewform?embedded=true">Loading…</iframe>
     </div> 
  </div>
 
- <footer> 
-     <p>© 2026 (K.A.T.S) K. ALLEN TECH SERVICES | KINGSTON, JAMAICA</p> 
-     <a class="legal-link" onclick="openTos()">Terms of Service & Legal Policy</a> 
- </footer> 
+ <footer style="text-align: center; padding: 50px 20px; opacity: 0.6; font-size: 0.8rem;">
+    <p>© 2026 (K.A.T.S) K. ALLEN TECH SERVICES | <a href="javascript:void(0)" onclick="openTos()" style="color: var(--light-blue);">Legal & Terms</a></p>
+ </footer>
 
  <script> 
      // LOADER SIMULATION
@@ -400,48 +391,35 @@
      updateClock();
 
      // MODAL CONTROLS (OPTIMIZED)
-function toggleTerminal() { 
-    document.body.classList.toggle('terminal-mode'); 
-    console.log("%c [SYSTEM]: UI OVERRIDE TOGGLED", "color: #00ff41; font-weight: bold;");
-}
+     function toggleTerminal() { document.body.classList.toggle('terminal-mode'); }
+     
+     function openTicket() { 
+        document.getElementById("ticketModal").style.display = "block"; 
+        document.body.style.overflow = "hidden"; 
+     }
 
-function openTos() { 
-    document.getElementById("tosModal").style.display = "block"; 
-    document.body.style.overflow = "hidden";
-}
+     function closeTicket() { 
+        document.getElementById("ticketModal").style.display = "none"; 
+        document.body.style.overflow = "auto"; 
+        document.getElementById("repairIframe").src = document.getElementById("repairIframe").src;
+     }
 
-function closeTos() { 
-    document.getElementById("tosModal").style.display = "none"; 
-    if (document.getElementById("ticketModal").style.display !== "block") {
+     function openTos() { 
+        document.getElementById("tosModal").style.display = "block"; 
+        document.body.style.overflow = "hidden";
+     }
+
+     function closeTos() { 
+        document.getElementById("tosModal").style.display = "none"; 
         document.body.style.overflow = "auto";
-    }
-}
+     }
 
-function openTicket() { 
-    document.getElementById("ticketModal").style.display = "block"; 
-    document.body.style.overflow = "hidden"; // Locks background scroll
-    console.log("%c [KATS]: Repair Portal V2.0 Online", "color: #00d2ff; font-weight: bold;");
-}
-
-function closeTicket() { 
-    document.getElementById("ticketModal").style.display = "none"; 
-    document.body.style.overflow = "auto"; // Unlocks background
-    
-    // Resets the Google Form so it's fresh for the next use
-    const iframe = document.getElementById("repairIframe");
-    if (iframe) {
-        iframe.src = iframe.src;
-    }
-}
-
-// Global Click-to-Close for both Modals
-window.onclick = function(event) { 
-    const tos = document.getElementById("tosModal");
-    const ticket = document.getElementById("ticketModal");
-    
-    if (event.target == tos) { closeTos(); } 
-    if (event.target == ticket) { closeTicket(); } 
-};
+     window.onclick = function(event) { 
+        if (event.target.className === 'modal') {
+            closeTicket();
+            closeTos();
+        } 
+     }
      
      // CANVAS PARTICLES
      const canvas = document.getElementById('bg-canvas'); 
@@ -498,6 +476,7 @@ window.onclick = function(event) {
  </script> 
  </body> 
  </html>
+
 
 
 
