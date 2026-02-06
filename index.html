@@ -13,12 +13,11 @@
     <meta property="og:url" content="https://kallentechservices-ja.github.io/" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image">
-
     <meta name="description" content="Official portal for K. Allen Tech Services. Kingston's expert Father & Son engineering team. Specialist in Apple, Windows, and Industrial Tech restoration.">
     <meta name="keywords" content="K. Allen Tech Services, KATS, Computer Repair Kingston, MacBook Repair Jamaica, Electronics Engineer Kingston">
     <link rel="canonical" href="https://kallentechservices-ja.github.io/" />
-
     <meta name="google-site-verification" content="GIXLjNw_vbxScsBWd8UKTJV7jvuDHtz6bkSH2etA-7A" /> 
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CWKFLQ6GEW"></script> 
     <script> 
       window.dataLayer = window.dataLayer || []; 
@@ -52,153 +51,88 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> 
-     
+      
     <style> 
     :root {  
-        --dark-bg: #010409;  
-        --light-blue: #00d2ff;  
-        --neon-green: #00ff88;  
-        --neon-pink: #ff0055;
-        --card-glass: rgba(13, 17, 23, 0.85);  
-        --whatsapp: #25d366; --facebook: #1877F2; --instagram: #E4405F; --linkedin: #0077B5; 
+        --dark-bg: #010409; --light-blue: #00d2ff; --neon-green: #00ff88; --neon-pink: #ff0055;
+        --card-glass: rgba(13, 17, 23, 0.85); 
     } 
 
-    /* PRELOADER */
-    #loader-wrapper {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: var(--dark-bg); z-index: 10000;
-        display: flex; flex-direction: column; justify-content: center; align-items: center;
-        transition: opacity 0.5s ease;
-    }
+    #loader-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark-bg); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.5s; }
     .loader-bar { width: 200px; height: 2px; background: rgba(255,255,255,0.1); position: relative; margin-top: 15px; }
     .loader-progress { position: absolute; height: 100%; background: var(--light-blue); width: 0%; transition: 0.3s; box-shadow: 0 0 10px var(--light-blue); }
 
-    /* SCROLLBAR */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--dark-bg); }
     ::-webkit-scrollbar-thumb { background: linear-gradient(var(--light-blue), var(--neon-green)); border-radius: 10px; }
 
-    body.terminal-mode {
-        --dark-bg: #000b00;
-        --light-blue: #00ff41;
-        --neon-green: #00ff41;
-    }
-    .terminal-overlay { 
-        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), 
-                    linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.06));
-        background-size: 100% 3px, 3px 100%; z-index: 9999; pointer-events: none; 
-    }
+    body.terminal-mode { --dark-bg: #000b00; --light-blue: #00ff41; --neon-green: #00ff41; }
+    .terminal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.06)); background-size: 100% 3px, 3px 100%; z-index: 9998; pointer-events: none; }
     body.terminal-mode .terminal-overlay { display: block; opacity: 0.2; }
 
-    body {  
-        margin: 0; padding: 0; background-color: var(--dark-bg); 
-        color: #ffffff; font-family: 'Segoe UI', Roboto, sans-serif; 
-        overflow-x: hidden; cursor: crosshair; 
-        background-image:  
-            linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px), 
-            linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px); 
-        background-size: 50px 50px; transition: background 0.3s ease;
-    } 
-
+    body { margin: 0; padding: 0; background-color: var(--dark-bg); color: #ffffff; font-family: 'Segoe UI', Roboto, sans-serif; overflow-x: hidden; cursor: crosshair; background-image: linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px); background-size: 50px 50px; } 
     #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; } 
 
-    /* HIGH TECH OVERRIDE BUTTON */
-    .side-dock { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 2000; transition: 0.3s; } 
-    .side-tile { width: 50px; height: 50px; background: #0d1117; border: 1px solid rgba(0, 210, 255, 0.4); border-radius: 12px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; } 
-    
-    .side-tile[data-label="Override"] {
-        background: linear-gradient(45deg, var(--neon-pink), var(--light-blue), var(--neon-green));
-        background-size: 200% 200%;
-        animation: cyberShift 3s ease infinite;
-        border: 2px solid #fff;
-    }
-    @keyframes cyberShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
+    .side-dock { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 2000; } 
+    .side-tile { width: 50px; height: 50px; background: #0d1117; border: 1px solid rgba(0, 210, 255, 0.4); border-radius: 12px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; position: relative; } 
+    .side-tile[data-label="Override"] { background: linear-gradient(45deg, var(--neon-pink), var(--light-blue), var(--neon-green)); animation: cyberShift 3s ease infinite; border: 2px solid #fff; }
+    @keyframes cyberShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     .side-tile i { color: #ffffff !important; font-size: 24px; } 
-    .side-tile:hover { transform: scale(1.1) translateX(-10px); border-color: #fff; box-shadow: 0 0 20px var(--light-blue); } 
     .side-tile::before { content: attr(data-label); position: absolute; right: 60px; background: var(--light-blue); color: #000; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; opacity: 0; transition: 0.3s; pointer-events: none; white-space: nowrap; } 
     .side-tile:hover::before { opacity: 1; right: 70px; } 
 
-    #scrollTop { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: var(--neon-green); color: #000; border: none; border-radius: 50%; font-size: 24px; cursor: pointer; display: none; z-index: 2500; box-shadow: 0 0 20px var(--neon-green); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    #scrollTop:hover { transform: translateY(-10px); background: #fff; }
+    #scrollTop { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: var(--neon-green); color: #000; border: none; border-radius: 50%; font-size: 24px; cursor: pointer; display: none; z-index: 2500; box-shadow: 0 0 20px var(--neon-green); }
 
-    header { padding: 40px 20px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; } 
-      
-    .ticker-wrap { width:100%; overflow:hidden; background:rgba(0,0,0,0.5); border-top:1px solid var(--light-blue); border-bottom:1px solid var(--light-blue); margin-top:25px; position: relative; }
-    .ticker { display:inline-block; white-space:nowrap; padding:12px 0; animation: marquee 30s linear infinite; color:var(--neon-green); font-family:monospace; font-size: 0.9rem; will-change: transform; }
+    header { padding: 40px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; } 
+    .logo-container { position: relative; width: 160px; height: 160px; margin: 10px auto; } 
+    .logo-img { width: 100%; border-radius: 50%; border: 4px solid var(--light-blue); background: white; z-index: 2; position: relative; } 
+    .scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--neon-green); box-shadow: 0 0 15px var(--neon-green); z-index: 3; animation: scan 3s linear infinite; } 
+    @keyframes scan { 0% { top: 0; opacity: 0; } 100% { top: 100%; opacity: 0; } } 
+    .status-badge { display: inline-flex; align-items: center; background: rgba(0, 255, 136, 0.1); color: var(--neon-green); padding: 10px 20px; border-radius: 50px; border: 1px solid var(--neon-green); font-weight: 900; letter-spacing: 2px; font-size: 0.8rem; } 
+
+    h1 { margin: 15px 0 0; font-size: 3.8rem; font-weight: 900; letter-spacing: 6px; } 
+    .ticker-wrap { width:100%; overflow:hidden; background:rgba(0,0,0,0.5); border-top:1px solid var(--light-blue); border-bottom:1px solid var(--light-blue); margin-top:25px; }
+    .ticker { display:inline-block; white-space:nowrap; padding:12px 0; animation: marquee 35s linear infinite; color:var(--neon-green); font-family:monospace; }
     @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
 
-    .logo-container { position: relative; width: 160px; height: 160px; margin: 10px auto; } 
-    .logo-img { width: 100%; border-radius: 50%; border: 4px solid var(--light-blue); background: white; z-index: 2; position: relative; transition: 0.5s; } 
-    .scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--neon-green); box-shadow: 0 0 15px var(--neon-green); z-index: 3; animation: scan 3s linear infinite; } 
-    @keyframes scan { 0% { top: 0; opacity: 0; } 10%, 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } } 
+    .container { max-width: 1200px; margin: 0 auto; padding: 10px 20px 80px; box-sizing: border-box; } 
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; } 
+    .card { background: var(--card-glass); border: 1px solid rgba(0, 210, 255, 0.15); border-radius: 20px; overflow: hidden; backdrop-filter: blur(10px); transition: 0.3s; } 
+    .card:hover { transform: translateY(-10px); border-color: var(--light-blue); }
+    .card-img { width: 100%; height: 200px; object-fit: cover; }
+    .card-content { padding: 20px; }
+    .card-content h3 { color: var(--light-blue); margin: 0 0 10px; }
 
-    .status-badge { display: inline-flex; align-items: center; background: rgba(0, 255, 136, 0.1); color: var(--neon-green); padding: 10px 20px; border-radius: 50px; border: 1px solid var(--neon-green); margin-bottom: 10px; font-weight: 900; font-size: 0.8rem; letter-spacing: 2px; text-shadow: 0 0 5px var(--neon-green); } 
-    #sys-clock { font-family: monospace; color: var(--neon-green); font-size: 0.85rem; margin-top: 5px; letter-spacing: 1px; }
+    .log-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 30px; } 
+    .log-card { background: rgba(255,255,255,0.03); padding: 20px; border-left: 4px solid var(--neon-green); border-radius: 0 12px 12px 0; } 
+    .log-card h4 { color: var(--light-blue); margin: 0 0 8px; }
 
-    h1 { margin: 15px 0 0 0; font-size: 3.8rem; font-weight: 900; letter-spacing: 6px; color: #fff; text-shadow: 0 0 25px rgba(255,255,255,0.2); } 
+    .contact-hub { background: rgba(255,255,255,0.02); padding: 50px 20px; border-radius: 30px; border: 1px solid var(--light-blue); text-align: center; margin-top: 80px; } 
+    .hub-list { max-width: 700px; margin: 30px auto; display: grid; grid-template-columns: 1fr; gap: 12px; } 
+    .hub-row { background: rgba(255,255,255,0.05); padding: 18px; border-radius: 12px; text-decoration: none; color: #fff; display: flex; align-items: center; justify-content: space-between; border: 1px solid transparent; transition: 0.3s; } 
+    .hub-row:hover { border-color: var(--light-blue); background: rgba(0, 210, 255, 0.1); }
+    .hub-row .label { color: var(--neon-green); font-weight: bold; font-size: 0.75rem; border: 1px solid var(--neon-green); padding: 3px 10px; border-radius: 5px; text-transform: uppercase; }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 10px 80px 20px 20px; box-sizing: border-box; } 
+    .btn-glow { background: var(--light-blue); color: #000; padding: 20px 60px; border-radius: 12px; text-decoration: none; font-weight: 900; font-size: 1.1rem; display: inline-block; cursor: pointer; border: none; box-shadow: 0 0 15px var(--light-blue); margin: 20px 0; }
 
-    /* HIGH TECH MODAL SIZING & COLOR */
-    .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.92); backdrop-filter: blur(12px); overflow-y: auto; } 
-    .modal-content { 
-        background: var(--card-glass); 
-        margin: 20px auto; 
-        padding: 30px; 
-        border: 2px solid var(--light-blue); 
-        width: 92%; 
-        max-width: 900px; 
-        border-radius: 20px; 
-        color: #ccc; 
-        box-shadow: 0 0 40px rgba(0, 210, 255, 0.2); 
-        position: relative; 
-    } 
-    
-    /* Responsive Desktop/Snap Scaling */
-    @media (min-width: 1024px) {
-        .modal-content { width: 70%; margin: 50px auto; }
-    }
+    .modal { display: none; position: fixed; z-index: 9000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); backdrop-filter: blur(12px); overflow-y: auto; } 
+    .modal-content { background: #0d1117; margin: 30px auto; padding: 30px; border: 2px solid var(--light-blue); width: 92%; max-width: 900px; border-radius: 20px; position: relative; } 
+    .close-btn { position: absolute; right: 20px; top: 20px; font-size: 35px; cursor: pointer; color: #fff; z-index: 10; }
+    #repairIframe { width: 100%; height: 75vh; border: none; border-radius: 10px; background: #fff; }
 
-    .modal-header h2 { 
-        background: linear-gradient(90deg, var(--neon-green), var(--light-blue), var(--neon-pink));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-family: monospace;
-        text-transform: uppercase;
-    }
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s all ease; } 
+    .reveal.active { opacity: 1; transform: translateY(0); } 
 
-    /* TERMS OF SERVICE STYLING */
-    .tos-section { 
-        border-left: 3px solid var(--light-blue); 
-        padding-left: 20px; 
-        margin-bottom: 25px; 
-        background: rgba(255,255,255,0.02); 
-        padding: 15px;
-    }
-    .tos-section h4 { color: var(--neon-green); margin-top: 0; font-family: monospace; letter-spacing: 1px; }
-    .tos-section p { font-size: 0.9rem; line-height: 1.5; color: #eee; }
-
-    #repairIframe { 
-        width: 100%; 
-        height: 70vh; 
-        border: none; 
-        border-radius: 10px; 
-        background: #fff; 
-        color-scheme: light;
-    }
+    .footer-socials { display: flex; justify-content: center; gap: 20px; margin-top: 30px; font-size: 28px; }
+    .footer-socials a { color: #fff; }
 
     @media (max-width: 768px) {
         h1 { font-size: 2.5rem; }
-        .side-dock { bottom: 0; top: auto; width: 100%; height: 70px; flex-direction: row; transform: none; right: 0; background: #000; border-top: 1px solid var(--light-blue); }
-        .modal-content { padding: 15px; margin: 10px auto; }
+        .side-dock { bottom: 0; top: auto; width: 100%; height: 70px; flex-direction: row; left: 0; transform: none; background: #000; border-top: 1px solid var(--light-blue); justify-content: center; }
+        .container { padding: 10px 10px 100px; }
+        .hub-row { flex-direction: column; text-align: center; gap: 10px; }
     }
-</style>
+    </style>
 </head> 
 <body> 
 
@@ -212,20 +146,19 @@
  <button id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"><i class="fas fa-arrow-up"></i></button>
 
  <div class="side-dock"> 
-     <a href="https://wa.me/18763833293" class="side-tile wa" data-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a> 
+     <a href="https://wa.me/18763833293" class="side-tile" data-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a> 
      <a href="javascript:void(0)" class="side-tile" data-label="Override" onclick="toggleTerminal()"><i class="fas fa-terminal"></i></a>
-     <a href="https://www.facebook.com/share/174szanVGW/" class="side-tile fb" data-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a> 
-     <a href="https://www.instagram.com/k.allentechrepair/" class="side-tile ig" data-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a> 
-     <a href="https://www.linkedin.com/company/k-allen-tech-services/" class="side-tile li" data-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
+     <a href="https://www.facebook.com/share/174szanVGW/" class="side-tile" data-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a> 
+     <a href="https://www.instagram.com/k.allentechrepair/" class="side-tile" data-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a> 
+     <a href="https://www.linkedin.com/company/k-allen-tech-services/" class="side-tile" data-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
  </div> 
 
  <header> 
-     <a href="https://radar.cloudflare.com/scan?url=https://kallentechservices-ja.github.io/" style="text-decoration: none;" target="_blank">
-        <div class="status-badge"><div class="dot"></div> FIELD SYSTEMS ACTIVE</div> 
-     </a>
-     <div id="sys-clock"></div> <div class="logo-container"> 
-         <div class="scan-line"></div> 
-         <img src="logo.png" alt="K. Allen Tech" class="logo-img"> 
+     <div class="status-badge">FIELD SYSTEMS ACTIVE</div> 
+     <div id="sys-clock" style="font-family: monospace; color: var(--neon-green); margin-top: 10px;"></div> 
+     <div class="logo-container"> 
+          <div class="scan-line"></div> 
+          <img src="logo.png" alt="K. Allen Tech" class="logo-img"> 
      </div> 
      <h1>K. ALLEN TECH</h1> 
      <p style="color: var(--light-blue); font-weight: 900; letter-spacing: 3px; margin-top: 10px;">FATHER & SON COMPUTER ENGINEERING</p>
@@ -240,7 +173,7 @@
  <div class="container"> 
      <div class="reveal" style="background: rgba(255,255,255,0.03); padding: 50px 40px; border-radius: 30px; border: 1px solid rgba(0, 210, 255, 0.15); margin-bottom: 80px; text-align: center; backdrop-filter: blur(8px);"> 
           <h2 style="color: var(--neon-green); margin-bottom: 25px; letter-spacing: 3px; font-weight: 900;">THE LEGACY: FATHER & SON</h2> 
-          <p style="line-height: 2; color: #ddd; max-width: 950px; margin: 0 auto; font-size: 1.15rem; font-weight: 400;"> 
+          <p style="line-height: 2; color: #ddd; max-width: 950px; margin: 0 auto; font-size: 1.15rem;"> 
               At KATS, engineering is a family standard. My father is a veteran <span style="color: var(--light-blue); font-weight: 800;">Computer & Electronics Engineer</span> specializing in the precision logic of industrial hardware. Working alongside him, I bring modern <span style="color: var(--light-blue); font-weight: 800;">Computer Engineering</span> expertise... Together, we provide a cross-generational technical mastery Kingston trusts. 
           </p> 
      </div> 
@@ -277,11 +210,11 @@
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800" class="card-img" loading="lazy"> 
               <div class="card-content"><h3>System Integrity</h3><p>Surge protection audits and deep virus eradication to prevent downtime.</p></div> 
-          </div> 
+          </div>
      </div> 
 
      <div class="log-section reveal" style="margin-top: 100px;"> 
-          <h2 style="text-align: center; color: var(--light-blue); letter-spacing: 3px; margin-bottom: 40px; font-weight: 900;">FIELD LOG HIGHLIGHTS</h2> 
+          <h2 style="text-align: center; color: var(--light-blue); letter-spacing: 3px; font-weight: 900;">FIELD LOG HIGHLIGHTS</h2> 
           <div class="log-grid"> 
               <div class="log-card"><h4>iMac Power Restoration</h4><p>Successful internal PSU replacement and VHB adhesive display re-sealing.</p></div> 
               <div class="log-card"><h4>Touchline Industries Ltd.</h4><p>Network share deployment & hardware procurement.</p></div> 
@@ -297,7 +230,6 @@
           <div class="address-highlight"> 
               <i class="fas fa-map-marker-alt"></i> 39 Grovedale Drive, Kingston 10, Jamaica 
           </div> 
-           
           <div class="hub-list"> 
               <a href="tel:+18763833293" class="hub-row"><i class="fas fa-phone-alt"></i><span class="label">Primary</span><span class="detail">876-383-3293</span></a> 
               <a href="tel:+18763791037" class="hub-row"><i class="fas fa-phone"></i><span class="label">Field Ops</span><span class="detail">876-379-1037</span></a> 
@@ -305,66 +237,45 @@
               <a href="mailto:kdahc42@gmail.com" class="hub-row"><i class="fas fa-user-shield"></i><span class="label">Tech 1</span><span class="detail">kdahc42@gmail.com</span></a> 
               <a href="mailto:marquino.allen16@gmail.com" class="hub-row"><i class="fas fa-user-cog"></i><span class="label">Tech 2</span><span class="detail">marquino.allen16@gmail.com</span></a> 
           </div> 
-
-          <div class="action-group" style="margin-top: 20px;"> 
-              <a href="javascript:void(0)" class="btn-glow" onclick="openTicket()">INITIATE REPAIR TICKET</a> 
-          </div> 
-
+          <button class="btn-glow" onclick="openTicket()">INITIATE REPAIR TICKET</button> 
           <div class="footer-socials"> 
-              <a href="https://wa.me/18763833293" target="_blank" class="wa-icon"><i class="fab fa-whatsapp"></i></a>
-              <a href="https://www.facebook.com/share/174szanVGW/" target="_blank" class="fb-icon"><i class="fab fa-facebook-f"></i></a> 
-              <a href="https://www.instagram.com/k.allentechrepair/" target="_blank" class="ig-icon"><i class="fab fa-instagram"></i></a> 
-              <a href="https://www.linkedin.com/company/k-allen-tech-services/" target="_blank" class="li-icon"><i class="fab fa-linkedin-in"></i></a> 
+              <a href="https://wa.me/18763833293" target="_blank"><i class="fab fa-whatsapp"></i></a>
+              <a href="https://www.facebook.com/share/174szanVGW/" target="_blank"><i class="fab fa-facebook-f"></i></a> 
+              <a href="https://www.instagram.com/k.allentechrepair/" target="_blank"><i class="fab fa-instagram"></i></a> 
+              <a href="https://www.linkedin.com/company/k-allen-tech-services/" target="_blank"><i class="fab fa-linkedin-in"></i></a> 
           </div> 
      </div> 
  </div> 
 
  <div id="tosModal" class="modal"> 
     <div class="modal-content" style="border-color: var(--neon-pink);"> 
-         <div class="modal-header"> 
-             <h2 style="background: linear-gradient(90deg, #ff0055, #ffcc00); -webkit-background-clip: text;">[SYSTEM_LEGAL_ENFORCEMENT]</h2> 
-             <span class="close-btn" onclick="closeTos()">&times;</span> 
-         </div> 
-         
-         <div class="tos-box"> 
+         <span class="close-btn" onclick="closeTos()">&times;</span> 
+         <h2 style="color: var(--neon-pink); font-family: monospace;">[SYSTEM_LEGAL_ENFORCEMENT]</h2> 
+         <div style="border-left: 3px solid var(--neon-pink); padding-left: 20px; margin-top: 20px;">
              <h4>0x01. JAMAICAN CONSUMER RIGHTS</h4> 
              <p>All services are governed by the Consumer Protection Act of Jamaica. Diagnostics must be approved before major hardware restoration begins.</p> 
-         </div> 
-
-         <div class="tos-box"> 
              <h4>0x02. DATA PROTECTION (JDPA)</h4> 
              <p>In compliance with the Jamaica Data Protection Act, client data is handled with maximum encryption. KATS is not liable for data loss on unbacked-up drives.</p> 
-         </div> 
-
-         <div class="tos-box"> 
              <h4>0x03. LIEN & ABANDONMENT</h4> 
-             <p>Equipment not collected within 90 days of completion notification will be subject to the Right of Lien and may be liquidated to cover costs.</p> 
+             <p>Equipment not collected within 90 days of completion notification will be subject to the Right of Lien and may be liquidated to cover costs.</p>
          </div>
+         <div style="text-align: center; color: var(--neon-pink); font-family: monospace; font-size: 0.7rem; margin-top: 25px;">// END OF LINE // AUTH_CODE: KINGSTON_TECH_V2 //</div>
     </div> 
- </div>
-         
-         <div style="text-align: center; color: var(--neon-pink); font-family: monospace; font-size: 0.7rem; margin-top: 20px;">
-             // END OF LINE // AUTH_CODE: KINGSTON_TECH_V2 //
-         </div>
-    </div> 
-</div> 
+ </div> 
 
  <div id="ticketModal" class="modal"> 
     <div class="modal-content"> 
-         <div class="modal-header"> 
-             <h2>> KATS_TICKET_PORTAL_V2.0</h2> 
-             <span class="close-btn" onclick="closeTicket()">&times;</span> 
-         </div> 
+         <span class="close-btn" onclick="closeTicket()">&times;</span> 
+         <h2 style="color: var(--light-blue); font-family: monospace;">> KATS_TICKET_PORTAL_V2.0</h2> 
          <iframe id="repairIframe" src="https://docs.google.com/forms/d/e/1FAIpQLSfUoqHksgjwiqbakWZ7NinuDbGsA-fAuaxGOQllr9fkR8Nh6g/viewform?embedded=true">Loading…</iframe>
     </div> 
  </div>
 
  <footer style="text-align: center; padding: 50px 20px; opacity: 0.6; font-size: 0.8rem;">
-    <p>© 2026 (K.A.T.S) K. ALLEN TECH SERVICES | <a href="javascript:void(0)" onclick="openTos()" style="color: var(--light-blue);">Legal & Terms</a></p>
+    <p>© 2026 (K.A.T.S) K. ALLEN TECH SERVICES | <a href="javascript:void(0)" onclick="openTos()" style="color: var(--light-blue); text-decoration: none;">Legal & Terms</a></p>
  </footer>
 
  <script> 
-     // LOADER SIMULATION
      window.addEventListener('load', () => {
         const progress = document.getElementById('load-progress');
         let width = 0;
@@ -374,93 +285,47 @@
                 document.getElementById('loader-wrapper').style.opacity = '0';
                 setTimeout(() => { document.getElementById('loader-wrapper').style.display = 'none'; }, 500);
             } else {
-                width += Math.random() * 20;
+                width += Math.random() * 25;
                 if(width > 100) width = 100;
                 progress.style.width = width + '%';
             }
         }, 120);
      });
 
-     // CLOCK
      function updateClock() {
         const now = new Date();
         const options = { timeZone: 'America/Jamaica', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
         document.getElementById('sys-clock').innerText = "SYS_TIME: " + now.toLocaleTimeString('en-US', options);
      }
-     setInterval(updateClock, 1000);
-     updateClock();
+     setInterval(updateClock, 1000); updateClock();
 
-     // MODAL CONTROLS (OPTIMIZED)
      function toggleTerminal() { document.body.classList.toggle('terminal-mode'); }
-     
-     function openTicket() { 
-        document.getElementById("ticketModal").style.display = "block"; 
-        document.body.style.overflow = "hidden"; 
-     }
+     function openTicket() { document.getElementById("ticketModal").style.display = "block"; document.body.style.overflow = "hidden"; }
+     function closeTicket() { document.getElementById("ticketModal").style.display = "none"; document.body.style.overflow = "auto"; }
+     function openTos() { document.getElementById("tosModal").style.display = "block"; document.body.style.overflow = "hidden"; }
+     function closeTos() { document.getElementById("tosModal").style.display = "none"; document.body.style.overflow = "auto"; }
 
-     function closeTicket() { 
-        document.getElementById("ticketModal").style.display = "none"; 
-        document.body.style.overflow = "auto"; 
-        document.getElementById("repairIframe").src = document.getElementById("repairIframe").src;
-     }
+     window.onclick = function(e) { if (e.target.className === 'modal') { closeTicket(); closeTos(); } }
 
-     function openTos() { 
-        document.getElementById("tosModal").style.display = "block"; 
-        document.body.style.overflow = "hidden";
-     }
-
-     function closeTos() { 
-        document.getElementById("tosModal").style.display = "none"; 
-        document.body.style.overflow = "auto";
-     }
-
-     window.onclick = function(event) { 
-        if (event.target.className === 'modal') {
-            closeTicket();
-            closeTos();
-        } 
-     }
-     
-     // CANVAS PARTICLES
      const canvas = document.getElementById('bg-canvas'); 
      const ctx = canvas.getContext('2d'); 
      let particles = []; 
-     let mouse = { x: null, y: null };
-     window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
-
      function init() { 
-         canvas.width = window.innerWidth; 
-         canvas.height = window.innerHeight; 
+         canvas.width = window.innerWidth; canvas.height = window.innerHeight; 
          particles = []; 
-         for (let i = 0; i < 70; i++) { 
-             particles.push({ 
-                x: Math.random() * canvas.width, 
-                y: Math.random() * canvas.height, 
-                vx: (Math.random() - 0.5) * 0.4, 
-                vy: (Math.random() - 0.5) * 0.4,
-                size: Math.random() * 1.5
-             }); 
-         } 
+         for (let i = 0; i < 70; i++) { particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4, size: Math.random() * 1.5 }); } 
      } 
      function animate() { 
-         ctx.clearRect(0, 0, canvas.width, canvas.height); 
-         ctx.fillStyle = '#00d2ff'; 
+         ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#00d2ff'; 
          particles.forEach(p => { 
              p.x += p.vx; p.y += p.vy; 
-             let dx = mouse.x - p.x;
-             let dy = mouse.y - p.y;
-             let distance = Math.sqrt(dx*dx + dy*dy);
-             if (distance < 150) { p.x -= dx/25; p.y -= dy/25; }
-             if (p.x < 0 || p.x > canvas.width) p.vx *= -1; 
-             if (p.y < 0 || p.y > canvas.height) p.vy *= -1; 
+             if (p.x < 0 || p.x > canvas.width) p.vx *= -1; if (p.y < 0 || p.y > canvas.height) p.vy *= -1; 
              ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill(); 
          }); 
          requestAnimationFrame(animate); 
      } 
-     window.addEventListener('resize', init); 
-     init(); animate(); 
+     window.addEventListener('resize', init); init(); animate(); 
 
-     // REVEAL ON SCROLL
      function reveal() { 
          var reveals = document.querySelectorAll(".reveal"); 
          for (var i = 0; i < reveals.length; i++) { 
@@ -471,8 +336,7 @@
          const scrollBtn = document.getElementById("scrollTop");
          if (document.documentElement.scrollTop > 500) { scrollBtn.style.display = "block"; } else { scrollBtn.style.display = "none"; }
      } 
-     window.onscroll = reveal; 
-     reveal(); 
+     window.onscroll = reveal; reveal(); 
  </script> 
- </body> 
- </html>
+</body> 
+</html>
