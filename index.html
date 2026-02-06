@@ -35,16 +35,8 @@
       "url": "https://kallentechservices-ja.github.io/", 
       "logo": "https://kallentechservices-ja.github.io/logo.png", 
       "image": "https://kallentechservices-ja.github.io/logo.png",
-      "address": { 
-        "@type": "PostalAddress", 
-        "streetAddress": "39 Grovedale Drive", 
-        "addressLocality": "Kingston", 
-        "addressRegion": "St. Andrew", 
-        "addressCountry": "JM" 
-      },
-      "telephone": "+18763833293",
-      "priceRange": "$$",
-      "openingHours": "Mo-Fr 09:00-17:00"
+      "address": { "@type": "PostalAddress", "streetAddress": "39 Grovedale Drive", "addressLocality": "Kingston", "addressRegion": "St. Andrew", "addressCountry": "JM" },
+      "telephone": "+18763833293", "priceRange": "$$", "openingHours": "Mo-Fr 09:00-17:00"
     } 
     </script> 
 
@@ -59,110 +51,102 @@
     } 
 
     /* PRELOADER */
-    #loader-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark-bg); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-    .loader-bar { width: 250px; height: 3px; background: rgba(255,255,255,0.05); position: relative; margin-top: 20px; overflow: hidden; border-radius: 10px; }
-    .loader-progress { position: absolute; height: 100%; background: linear-gradient(90deg, transparent, var(--light-blue), transparent); width: 0%; transition: 0.4s; box-shadow: 0 0 15px var(--light-blue); }
+    #loader-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark-bg); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.8s; }
+    .loader-bar { width: 250px; height: 3px; background: rgba(255,255,255,0.05); position: relative; margin-top: 20px; overflow: hidden; }
+    .loader-progress { position: absolute; height: 100%; background: var(--accent); width: 0%; transition: 0.4s; box-shadow: 0 0 15px var(--accent); }
 
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--dark-bg); }
     ::-webkit-scrollbar-thumb { background: linear-gradient(var(--light-blue), var(--neon-green)); border-radius: 10px; }
 
     /* MODES */
-    body.terminal-mode { --dark-bg: #000b00; --accent: #00ff41; --light-blue: #00ff41; --neon-green: #00ff41; }
-    body.pink-mode { --accent: var(--neon-pink); --light-blue: var(--neon-pink); --neon-green: #fff; --dark-bg: #100008; }
-    body.gold-mode { --accent: var(--neon-gold); --light-blue: var(--neon-gold); --neon-green: #ffcc00; --dark-bg: #0a0a00; }
+    body.terminal-mode { --dark-bg: #000b00; --accent: #00ff41; --light-blue: #00ff41; }
+    body.pink-mode { --accent: var(--neon-pink); --light-blue: var(--neon-pink); --dark-bg: #100008; }
+    body.gold-mode { --accent: var(--neon-gold); --light-blue: var(--neon-gold); --dark-bg: #0a0a00; }
 
     .terminal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.06)); background-size: 100% 3px, 3px 100%; z-index: 9998; pointer-events: none; }
     body.terminal-mode .terminal-overlay { display: block; opacity: 0.3; }
 
-    body { margin: 0; padding: 0; background-color: var(--dark-bg); color: #ffffff; font-family: 'Segoe UI', Roboto, sans-serif; overflow-x: hidden; cursor: crosshair; background-image: radial-gradient(circle at 2px 2px, rgba(0, 210, 255, 0.07) 1px, transparent 0); background-size: 40px 40px; transition: background 0.6s ease, color 0.4s; } 
-    #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; } 
+    body { margin: 0; padding: 0; background-color: var(--dark-bg); color: #ffffff; font-family: 'Segoe UI', Roboto, sans-serif; overflow-x: hidden; cursor: crosshair; background-image: radial-gradient(circle at 2px 2px, rgba(0, 210, 255, 0.05) 1px, transparent 0); background-size: 40px 40px; transition: 0.5s; } 
+    #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; } 
 
-    /* DOCK BOX */
+    /* DOCK */
     .side-dock { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 2000; } 
-    .side-tile { width: 55px; height: 55px; background: rgba(13, 17, 23, 0.8); border: 1px solid rgba(0, 210, 255, 0.3); border-radius: 15px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); backdrop-filter: blur(10px); } 
-    .side-tile:hover { transform: scale(1.1) translateX(-5px); border-color: var(--accent); box-shadow: 0 0 20px rgba(0, 210, 255, 0.2); }
-    
-    .side-tile[data-label="Override"] { 
-        background: linear-gradient(45deg, var(--neon-pink), var(--light-blue), var(--neon-green), var(--neon-gold)); 
-        background-size: 400% 400%;
-        animation: cyberShift 5s ease infinite; 
-        border: 2px solid #fff; 
-    }
+    .side-tile { width: 50px; height: 50px; background: rgba(13, 17, 23, 0.9); border: 1px solid rgba(0, 210, 255, 0.3); border-radius: 12px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; position: relative; } 
+    .side-tile:hover { transform: scale(1.1); border-color: var(--accent); }
+    .side-tile[data-label="Override"] { background: linear-gradient(45deg, var(--neon-pink), var(--light-blue), var(--neon-green), var(--neon-gold)); background-size: 300%; animation: cyberShift 4s infinite; border: 2px solid #fff; }
     @keyframes cyberShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-    .side-tile i { color: #ffffff; font-size: 22px; } 
+    #scrollTop { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: var(--accent); color: #000; border: none; border-radius: 50%; font-size: 24px; cursor: pointer; display: none; z-index: 2500; box-shadow: 0 0 20px var(--accent); }
 
-    #scrollTop { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: var(--accent); color: #000; border: none; border-radius: 50%; font-size: 24px; cursor: pointer; display: none; z-index: 2500; box-shadow: 0 0 20px var(--accent); transition: 0.3s; }
+    /* HEADER */
+    header { padding: 50px 20px; text-align: center; } 
+    .logo-container { position: relative; width: 160px; height: 160px; margin: 0 auto 20px; } 
+    .logo-img { width: 100%; border-radius: 50%; border: 3px solid var(--accent); background: white; z-index: 5; position: relative; }
+    .scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--accent); box-shadow: 0 0 15px var(--accent); z-index: 6; animation: scan 3s linear infinite; opacity: 0.5; } 
+    @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
 
-    /* HEADER & GLITCH */
-    header { padding: 60px 20px; text-align: center; } 
-    .logo-container { position: relative; width: 170px; height: 170px; margin: 0 auto 20px; } 
-    .logo-img { width: 100%; border-radius: 50%; border: 3px solid var(--accent); background: white; position: relative; z-index: 5; transition: 0.3s; }
-    .logo-container:hover .logo-img { transform: scale(1.05) rotate(5deg); }
-    
-    .scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(transparent, var(--accent), transparent); opacity: 0.2; pointer-events: none; z-index: 6; animation: scanMove 4s linear infinite; } 
-    @keyframes scanMove { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+    .status-badge { display: inline-flex; align-items: center; background: rgba(0, 255, 136, 0.05); color: var(--neon-green); padding: 8px 18px; border-radius: 50px; border: 1px solid var(--neon-green); font-weight: 900; letter-spacing: 2px; font-size: 0.7rem; margin-bottom: 15px; } 
+    h1 { margin: 0; font-size: clamp(2.2rem, 8vw, 4rem); font-weight: 900; letter-spacing: -1px; } 
 
-    .status-badge { display: inline-flex; align-items: center; background: rgba(0, 255, 136, 0.05); color: var(--neon-green); padding: 8px 20px; border-radius: 50px; border: 1px solid var(--neon-green); font-weight: 900; letter-spacing: 3px; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 20px; } 
-
-    h1 { margin: 0; font-size: clamp(2.5rem, 10vw, 4.5rem); font-weight: 950; letter-spacing: -2px; line-height: 0.9; text-transform: uppercase; background: linear-gradient(to bottom, #fff 50%, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.3)); } 
-
-    .ticker-wrap { width:100%; overflow:hidden; background:rgba(0,0,0,0.8); border-top:1px solid rgba(0, 210, 255, 0.2); border-bottom:1px solid rgba(0, 210, 255, 0.2); margin-top:40px; backdrop-filter: blur(5px); }
-    .ticker { display:inline-block; white-space:nowrap; padding:15px 0; animation: marquee 40s linear infinite; color:var(--accent); font-family: 'Courier New', monospace; font-weight: bold; font-size: 0.9rem; }
+    .ticker-wrap { width:100%; overflow:hidden; background:rgba(0,0,0,0.5); border-top:1px solid rgba(0, 210, 255, 0.1); border-bottom:1px solid rgba(0, 210, 255, 0.1); margin-top:30px; }
+    .ticker { display:inline-block; white-space:nowrap; padding:12px 0; animation: marquee 35s linear infinite; color:var(--accent); font-family: monospace; font-size: 0.85rem; }
     @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
 
-    /* CONTENT BLOCKS */
-    .container { max-width: 1250px; margin: 0 auto; padding: 40px 20px; } 
-    
-    .legacy-box { background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); padding: 60px 40px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 100px; position: relative; overflow: hidden; }
-    .legacy-box::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(from 0deg, transparent, var(--accent), transparent 30%); animation: rotate 10s linear infinite; opacity: 0.05; z-index: -1; }
-    @keyframes rotate { 100% { transform: rotate(360deg); } }
+    /* LAYOUT */
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; } 
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
 
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; } 
-    .card { background: var(--card-glass); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; overflow: hidden; transition: 0.4s; position: relative; } 
-    .card:hover { transform: translateY(-12px) scale(1.02); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-    .card-img { width: 100%; height: 220px; object-fit: cover; filter: grayscale(40%); transition: 0.5s; }
-    .card:hover .card-img { filter: grayscale(0%); }
-    .card-content { padding: 25px; }
-    .card-content h3 { color: var(--accent); margin: 0 0 12px; font-size: 1.4rem; letter-spacing: 1px; }
-    .card-content p { color: #aaa; line-height: 1.6; font-size: 0.95rem; }
+    .legacy-box { background: rgba(255,255,255,0.02); padding: 50px 30px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 80px; text-align: center; }
 
-    .log-card { background: rgba(255,255,255,0.02); padding: 25px; border-left: 4px solid var(--accent); border-radius: 4px 16px 16px 4px; transition: 0.3s; }
-    .log-card:hover { background: rgba(255,255,255,0.05); transform: translateX(10px); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; } 
+    .card { background: var(--card-glass); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden; transition: 0.3s; } 
+    .card:hover { transform: translateY(-10px); border-color: var(--accent); }
+    .card-img { width: 100%; height: 200px; object-fit: cover; }
+    .card-content { padding: 20px; }
+    .card-content h3 { color: var(--accent); margin: 0 0 10px; font-size: 1.2rem; }
+    .card-content p { color: #ccc; font-size: 0.9rem; line-height: 1.5; }
 
-    /* COMMAND CENTER GRID */
-    .contact-hub { background: #000; padding: 80px 40px; border-radius: 40px; border: 1px solid var(--accent); margin-top: 100px; box-shadow: inset 0 0 50px rgba(0, 210, 255, 0.1); } 
-    .hub-list { max-width: 1000px; margin: 40px auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; } 
-    .hub-row { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; text-decoration: none; color: #fff; display: flex; align-items: center; gap: 20px; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; } 
-    .hub-row:hover { background: var(--accent); color: #000; border-color: #fff; }
-    .hub-row:hover .label { border-color: #000; color: #000; }
-    .hub-row:hover i { color: #000; }
-    
-    .hub-row i { color: var(--accent); font-size: 1.4rem; transition: 0.3s; }
-    .hub-row .label { color: var(--neon-green); font-weight: 800; font-size: 0.65rem; border: 1px solid var(--neon-green); padding: 4px 10px; border-radius: 6px; text-transform: uppercase; }
-    .hub-row .detail { font-family: 'Courier New', monospace; font-weight: bold; }
+    .log-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-top: 40px; }
+    .log-card { background: rgba(255,255,255,0.03); padding: 20px; border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0; }
 
-    .btn-glow { background: var(--accent); color: #000; padding: 24px 80px; border-radius: 50px; text-decoration: none; font-weight: 900; font-size: 1.2rem; display: inline-block; cursor: pointer; border: none; box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); margin: 40px 0; transition: 0.4s; text-transform: uppercase; letter-spacing: 2px; }
-    .btn-glow:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 0 50px var(--accent); }
+    /* CONTACT HUB FIX */
+    .contact-hub { background: rgba(0,0,0,0.3); padding: 60px 20px; border-radius: 30px; border: 1px solid var(--accent); margin-top: 80px; text-align: center; } 
+    .hub-list { max-width: 900px; margin: 40px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; } 
+    .hub-row { background: rgba(255,255,255,0.04); padding: 15px 20px; border-radius: 12px; text-decoration: none; color: #fff; display: flex; align-items: center; gap: 15px; border: 1px solid transparent; transition: 0.3s; } 
+    .hub-row:hover { background: rgba(0, 210, 255, 0.1); border-color: var(--accent); transform: scale(1.02); }
+    .hub-row i { color: var(--accent); width: 20px; text-align: center; }
+    .hub-row .label { color: var(--neon-green); font-weight: 800; font-size: 0.65rem; border: 1px solid var(--neon-green); padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+    .hub-row .detail { font-family: monospace; font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-    .modal-content { background: #010409; border: 2px solid var(--accent); box-shadow: 0 0 100px rgba(0,0,0,0.8); }
+    .btn-glow { background: var(--accent); color: #000; padding: 18px 50px; border-radius: 12px; font-weight: 900; font-size: 1.1rem; border: none; cursor: pointer; margin: 30px 0; box-shadow: 0 0 20px rgba(0, 210, 255, 0.3); transition: 0.3s; }
+    .btn-glow:hover { transform: scale(1.05); box-shadow: 0 0 40px var(--accent); }
 
-    @media (max-width: 900px) {
-        .hub-list { grid-template-columns: 1fr; }
-        .legacy-box { padding: 40px 20px; }
-    }
+    /* SOCIAL ICONS FIX */
+    .footer-socials { display: flex; justify-content: center; align-items: center; gap: 25px; margin-top: 30px; }
+    .footer-socials a { color: #fff; font-size: 26px; transition: 0.3s; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+    .footer-socials a:hover { color: var(--accent); transform: translateY(-5px); }
+
+    /* MODAL FIX */
+    .modal { display: none; position: fixed; z-index: 9000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); overflow: hidden; } 
+    .modal-content { background: #0d1117; margin: 2vh auto; padding: 0; border: 1px solid var(--accent); width: 95%; max-width: 900px; height: 96vh; border-radius: 15px; position: relative; display: flex; flex-direction: column; } 
+    .modal-header { padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; }
+    .close-btn { font-size: 28px; cursor: pointer; color: #fff; line-height: 1; }
+    #repairIframe { flex-grow: 1; width: 100%; border: none; background: #fff; border-radius: 0 0 15px 15px; }
+
     @media (max-width: 768px) {
-        .side-dock { bottom: 0; top: auto; width: 100%; height: 75px; flex-direction: row; left: 0; transform: none; background: rgba(0,0,0,0.9); border-top: 1px solid var(--accent); justify-content: center; align-items: center; }
-        .container { padding-bottom: 120px; }
+        .side-dock { bottom: 0; top: auto; width: 100%; height: 70px; flex-direction: row; left: 0; transform: none; background: #000; border-top: 1px solid var(--accent); justify-content: center; padding: 0; }
+        .container { padding-bottom: 100px; }
+        .hub-list { grid-template-columns: 1fr; }
+        .modal-content { height: 90vh; margin: 5vh auto; }
     }
     </style>
 </head> 
 <body> 
 
  <div id="loader-wrapper">
-    <img src="logo.png" width="80" style="filter: brightness(2); margin-bottom: 10px;">
-    <div style="font-family: monospace; color: var(--accent); letter-spacing: 5px; font-weight: bold; font-size: 0.8rem;">SYSTEM_KATS_BOOTING</div>
+    <div style="font-family: monospace; color: var(--accent); letter-spacing: 3px; font-weight: bold;">INITIALIZING_KATS_OS...</div>
     <div class="loader-bar"><div class="loader-progress" id="load-progress"></div></div>
  </div>
 
@@ -179,79 +163,80 @@
  </div> 
 
  <header> 
-     <div class="status-badge" id="status-text">SYSTEM_STABLE // 0x2A4</div> 
-     <div id="sys-clock" style="font-family: 'Courier New', monospace; color: var(--accent); font-size: 1.1rem; font-weight: bold;"></div> 
+     <div class="status-badge" id="status-text">FIELD_SYSTEMS_ACTIVE</div> 
+     <div id="sys-clock" style="font-family: monospace; color: var(--accent); font-weight: bold;"></div> 
      <div class="logo-container"> 
           <div class="scan-line"></div> 
           <img src="logo.png" alt="K. Allen Tech" class="logo-img"> 
      </div> 
      <h1>K. ALLEN TECH</h1> 
-     <p style="color: var(--accent); font-weight: 900; letter-spacing: 5px; margin-top: 15px; opacity: 0.8;">FATHER & SON ENGINEERING</p>
+     <p style="color: var(--accent); font-weight: 900; letter-spacing: 4px; margin-top: 10px;">FATHER & SON ENGINEERING</p>
 
      <div class="ticker-wrap">
         <div class="ticker">
-            CORE_BOOT: OK // [LOG]: iMac Restoration @ Radiance Oral... COMPLETED // [LOG]: MacBook Logic Fix @ ABTAX... COMPLETED // [LOG]: Network Audit @ Touchline... ACTIVE // PRECISION_HARDWARE_INTEGRITY: 100% // KINGSTON_OPS: ONLINE // 
+            [SYSTEM LOG]: iMac PSU Restoration... SUCCESS // MacBook Calibration... OK // Industrial Scanner Diagnostic... ACTIVE // Network Audit: ABTAX LTD... DONE // Kingston Ops: ONLINE // Precision Eng: ACTIVE //
         </div>
      </div>
  </header> 
 
  <div class="container"> 
      <div class="reveal legacy-box"> 
-          <h2 style="color: var(--neon-green); margin-bottom: 30px; letter-spacing: 4px; font-weight: 950; text-transform: uppercase;">The Engineering Legacy</h2> 
-          <p style="line-height: 2.2; color: #eee; max-width: 1000px; margin: 0 auto; font-size: 1.2rem; font-weight: 400;"> 
-              At KATS, engineering is a family standard. Working alongside my father—a veteran <span style="color: var(--accent); font-weight: 800; border-bottom: 2px solid var(--accent);">Electronics Engineer</span>—we combine industrial-grade diagnostic mastery with modern <span style="color: var(--accent); font-weight: 800; border-bottom: 2px solid var(--accent);">Computer Engineering</span>. From complex MacBook logic boards to heavy-duty industrial scanners, we provide the cross-generational technical precision Kingston trusts. 
+          <h2 style="color: var(--neon-green); margin-bottom: 20px; letter-spacing: 3px; font-weight: 900;">THE ENGINEERING LEGACY</h2> 
+          <p style="line-height: 2; color: #ddd; max-width: 950px; margin: 0 auto; font-size: 1.1rem;"> 
+              At KATS, engineering is a family standard. Working alongside my father—a veteran <span style="color: var(--accent); font-weight: 800;">Computer & Electronics Engineer</span>—we combine industrial logic with modern <span style="color: var(--accent); font-weight: 800;">Computer Engineering</span> expertise to provide a cross-generational technical mastery Kingston trusts. 
           </p> 
      </div> 
 
      <div class="services-grid"> 
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1517059224940-d4af9eec41b7?q=80&w=800&auto=format&fit=crop" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Apple Support</h3><p>MacBook Pro/Air logic board diagnostics, PSU restoration, and VHB display re-sealing to factory spec.</p></div> 
+              <div class="card-content"><h3>Apple Support</h3><p>Specialized iMac and MacBook diagnostics, PSU replacements, and precision display re-sealing.</p></div> 
           </div> 
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1555617766-c94804975da3?auto=format&fit=crop&w=800" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Hardware & OS</h3><p>Enterprise-grade Windows 11 deployment, custom PC builds, and system performance auditing.</p></div> 
+              <div class="card-content"><h3>Hardware & OS</h3><p>Windows 11 optimization, system deep-cleans, and high-performance component sourcing.</p></div> 
           </div> 
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1746005847013-13291f371f0f?q=80&w=1170&auto=format&fit=crop" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Mobile Diagnostics</h3><p>Precision screen and battery replacements using high-integrity components and sealants.</p></div> 
+              <div class="card-content"><h3>Phone Repair</h3><p>Precision screen replacement, battery health restoration, and charging port diagnostics.</p></div> 
           </div> 
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Specialized Tech</h3><p>Industrial scanner repair and logic diagnostics for proprietary hardware systems.</p></div> 
+              <div class="card-content"><h3>Specialized Tech</h3><p>Diagnostics for industrial sensors and specialized scanner computer units.</p></div> 
           </div> 
           <div class="card reveal"> 
               <img src="https://www.cyberdb.co/wp-content/uploads/2025/01/How-IT-Consulting-Services-Can-Drive-Business-Growth.jpg" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Consultancy</h3><p>Technical procurement strategy and digital workflow optimization for corporate clients.</p></div> 
+              <div class="card-content"><h3>IT Consultancy</h3><p>Infrastructure scaling, procurement strategy, and digital workflow optimization for businesses.</p></div> 
           </div>
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?q=80&w=800" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Printer Ops</h3><p>Maintenance and mechanical repair for thermal, laser, and industrial ID card printers.</p></div> 
+              <div class="card-content"><h3>Printer Specialist</h3><p>Mechanical restoration for thermal, laser, and industrial ID printers.</p></div> 
           </div> 
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Network Shares</h3><p>Secure local data sharing and office server configuration for team environments.</p></div> 
+              <div class="card-content"><h3>Network Shares</h3><p>Office data configuration and security auditing for seamless collaboration.</p></div> 
           </div> 
           <div class="card reveal"> 
               <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800" class="card-img" loading="lazy"> 
-              <div class="card-content"><h3>Integrity Audits</h3><p>Surge protection mapping and virus eradication to ensure zero business downtime.</p></div> 
+              <div class="card-content"><h3>System Integrity</h3><p>Surge protection audits and deep virus eradication to prevent downtime.</p></div> 
           </div>
      </div> 
 
-     <div class="reveal" style="margin-top: 120px;"> 
-          <h2 style="text-align: center; color: var(--accent); letter-spacing: 5px; font-weight: 950; text-transform: uppercase; margin-bottom: 50px;">Verified Field Logs</h2> 
+     <div class="log-section reveal" style="margin-top: 100px;"> 
+          <h2 style="text-align: center; color: var(--accent); letter-spacing: 3px; font-weight: 900;">FIELD LOG HIGHLIGHTS</h2> 
           <div class="log-grid"> 
-              <div class="log-card"><h4>iMac Power Restoration</h4><p>Full PSU replacement and internal logic cleaning at Radiance Oral Care.</p></div> 
-              <div class="log-card"><h4>Touchline Industries</h4><p>Network infrastructure deployment and fleet procurement.</p></div> 
-              <div class="log-card"><h4>ABTAX Limited</h4><p>Fleet OS migration and comprehensive surge protection audit.</p></div> 
-              <div class="log-card"><h4>Precision Alignment</h4><p>Diagnostics for specialized alignment scanner systems.</p></div> 
-              <div class="log-card"><h4>Sagility Jamaica</h4><p>Maintenance of high-volume industrial thermal printers.</p></div> 
+              <div class="log-card"><h4>iMac Power Restoration</h4><p>Successful internal PSU replacement and VHB adhesive display re-sealing.</p></div> 
+              <div class="log-card"><h4>Touchline Industries Ltd.</h4><p>Network share deployment & hardware procurement.</p></div> 
+              <div class="log-card"><h4>Radiance Oral Care</h4><p>System cleaning & comprehensive hardware maintenance.</p></div> 
+              <div class="log-card"><h4>Precision Alignment Ltd.</h4><p>Specialized scanner and computer system support.</p></div> 
+              <div class="log-card"><h4>ABTAX Limited</h4><p>Fleet-wide OS upgrades & surge protection audits.</p></div> 
+              <div class="log-card"><h4>Sagility Jamaica</h4><p>Industrial ID printer diagnostics & repair.</p></div> 
           </div> 
      </div> 
 
      <div class="contact-hub reveal"> 
-          <h2 style="color: var(--accent); letter-spacing: 5px; font-weight: 950; text-transform: uppercase;">Command Center</h2> 
-          <div style="margin-bottom: 30px; font-size: 1.2rem; font-weight: bold;"> 
+          <h2 style="color: var(--accent); letter-spacing: 3px; font-weight: 900;">COMMAND CENTER</h2> 
+          <div style="margin-bottom: 20px; font-weight: bold;"> 
               <i class="fas fa-map-marker-alt" style="color: var(--neon-pink);"></i> 39 Grovedale Drive, Kingston 10, Jamaica 
           </div> 
           <div class="hub-list"> 
@@ -261,7 +246,7 @@
               <a href="mailto:kdahc42@gmail.com" class="hub-row"><i class="fas fa-user-shield"></i><span class="label">Tech 1</span><span class="detail">kdahc42@gmail.com</span></a> 
               <a href="mailto:marquino.allen16@gmail.com" class="hub-row"><i class="fas fa-user-cog"></i><span class="label">Tech 2</span><span class="detail">marquino.allen16@gmail.com</span></a> 
           </div> 
-          <button class="btn-glow" onclick="openTicket()">Open Repair Ticket</button> 
+          <button class="btn-glow" onclick="openTicket()">INITIATE REPAIR TICKET</button> 
           <div class="footer-socials"> 
               <a href="https://wa.me/18763833293" target="_blank"><i class="fab fa-whatsapp"></i></a>
               <a href="https://www.facebook.com/share/174szanVGW/" target="_blank"><i class="fab fa-facebook-f"></i></a> 
@@ -272,45 +257,43 @@
  </div> 
 
  <div id="tosModal" class="modal"> 
-    <div class="modal-content" style="border-color: var(--neon-pink);"> 
-         <span class="close-btn" onclick="closeTos()">&times;</span> 
-         <h2 style="color: var(--neon-pink); font-family: monospace;">[LEGAL_ENFORCEMENT]</h2> 
-         <div style="border-left: 3px solid var(--neon-pink); padding: 20px; background: rgba(255,0,0,0.02);">
-             <h4>0x01. CONSUMER RIGHTS</h4><p>All services governed by the Consumer Protection Act of Jamaica.</p> 
-             <h4>0x02. DATA POLICY</h4><p>JDPA compliant encryption protocols enforced.</p> 
-             <h4>0x03. LIEN POLICY</h4><p>Equipment not claimed within 90 days subject to liquidation.</p>
+    <div class="modal-content" style="border-color: var(--neon-pink); height: auto; margin: 15vh auto;"> 
+         <div class="modal-header">
+            <span style="color: var(--neon-pink); font-family: monospace; font-weight: bold;">[SYSTEM_LEGAL_ENFORCEMENT]</span>
+            <span class="close-btn" onclick="closeTos()">&times;</span> 
+         </div>
+         <div style="padding: 30px; border-left: 3px solid var(--neon-pink);">
+             <h4>0x01. JAMAICAN CONSUMER RIGHTS</h4><p>All services governed by the Consumer Protection Act of Jamaica.</p> 
+             <h4>0x02. DATA PROTECTION (JDPA)</h4><p>Client data handled with maximum encryption per JDPA standards.</p> 
+             <h4>0x03. LIEN & ABANDONMENT</h4><p>Equipment not collected within 90 days may be liquidated per Right of Lien.</p>
          </div>
     </div> 
  </div> 
 
  <div id="ticketModal" class="modal"> 
     <div class="modal-content"> 
-         <span class="close-btn" onclick="closeTicket()">&times;</span> 
-         <h2 style="color: var(--accent); font-family: monospace;">> KATS_PORTAL_v3.0</h2> 
+         <div class="modal-header">
+            <span style="color: var(--accent); font-family: monospace; font-weight: bold;">> KATS_PORTAL_V3.0</span>
+            <span class="close-btn" onclick="closeTicket()">&times;</span> 
+         </div>
          <iframe id="repairIframe" src="https://docs.google.com/forms/d/e/1FAIpQLSfUoqHksgjwiqbakWZ7NinuDbGsA-fAuaxGOQllr9fkR8Nh6g/viewform?embedded=true">Loading…</iframe>
     </div> 
  </div>
 
- <footer style="text-align: center; padding: 60px 20px; opacity: 0.5; font-size: 0.8rem; letter-spacing: 2px;">
-    <p>© 2026 K. ALLEN TECH SERVICES | <a href="javascript:void(0)" onclick="openTos()" style="color: var(--accent); text-decoration: none;">TERMS_OF_SERVICE</a></p>
+ <footer style="text-align: center; padding: 50px 20px; opacity: 0.6; font-size: 0.8rem;">
+    <p>© 2026 (K.A.T.S) K. ALLEN TECH SERVICES | <a href="javascript:void(0)" onclick="openTos()" style="color: var(--accent); text-decoration: none;">Legal & Terms</a></p>
  </footer>
 
  <script> 
      let overrideStep = 0;
      function cycleOverride() {
-        const body = document.body;
-        const status = document.getElementById('status-text');
+        const body = document.body; const status = document.getElementById('status-text');
         overrideStep++;
-        if(overrideStep === 1) { 
-            body.classList.add('terminal-mode'); status.innerText = "OVERRIDE: TERMINAL_ACTIVE";
-        } else if(overrideStep === 2) { 
-            body.classList.remove('terminal-mode'); body.classList.add('pink-mode'); status.innerText = "OVERRIDE: CYBER_NEON";
-        } else if(overrideStep === 3) { 
-            body.classList.remove('pink-mode'); body.classList.add('gold-mode'); status.innerText = "OVERRIDE: INDUSTRIAL_GOLD";
-        } else { 
-            body.classList.remove('gold-mode'); overrideStep = 0; status.innerText = "SYSTEM_STABLE // 0x2A4";
-        }
-        init(); // Refresh background particles
+        if(overrideStep === 1) { body.classList.add('terminal-mode'); status.innerText = "OVERRIDE: TERMINAL_MODE"; }
+        else if(overrideStep === 2) { body.classList.remove('terminal-mode'); body.classList.add('pink-mode'); status.innerText = "OVERRIDE: CYBER_PINK"; }
+        else if(overrideStep === 3) { body.classList.remove('pink-mode'); body.classList.add('gold-mode'); status.innerText = "OVERRIDE: INDUSTRIAL_GOLD"; }
+        else { body.classList.remove('gold-mode'); overrideStep = 0; status.innerText = "FIELD_SYSTEMS_ACTIVE"; }
+        init(); 
      }
 
      window.addEventListener('load', () => {
@@ -320,10 +303,9 @@
             if (width >= 100) {
                 clearInterval(interval);
                 document.getElementById('loader-wrapper').style.opacity = '0';
-                setTimeout(() => { document.getElementById('loader-wrapper').style.display = 'none'; }, 800);
+                setTimeout(() => { document.getElementById('loader-wrapper').style.display = 'none'; }, 500);
             } else {
-                width += Math.random() * 15;
-                if(width > 100) width = 100;
+                width += Math.random() * 20; if(width > 100) width = 100;
                 progress.style.width = width + '%';
             }
         }, 100);
@@ -331,8 +313,8 @@
 
      function updateClock() {
         const now = new Date();
-        const options = { timeZone: 'America/Jamaica', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-        document.getElementById('sys-clock').innerText = "JAM_SEC: " + now.toLocaleTimeString('en-US', options);
+        const options = { timeZone: 'America/Jamaica', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+        document.getElementById('sys-clock').innerText = "SYS_TIME: " + now.toLocaleTimeString('en-US', options);
      }
      setInterval(updateClock, 1000); updateClock();
 
@@ -341,6 +323,8 @@
      function openTos() { document.getElementById("tosModal").style.display = "block"; document.body.style.overflow = "hidden"; }
      function closeTos() { document.getElementById("tosModal").style.display = "none"; document.body.style.overflow = "auto"; }
 
+     window.onclick = function(e) { if (e.target.className === 'modal') { closeTicket(); closeTos(); } }
+
      const canvas = document.getElementById('bg-canvas'); 
      const ctx = canvas.getContext('2d'); 
      let particles = []; 
@@ -348,15 +332,14 @@
          canvas.width = window.innerWidth; canvas.height = window.innerHeight; 
          particles = []; 
          const color = getComputedStyle(document.body).getPropertyValue('--accent').trim();
-         for (let i = 0; i < 80; i++) { particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6, size: Math.random() * 2, color: color }); } 
+         for (let i = 0; i < 70; i++) { particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4, size: Math.random() * 1.5, color: color }); } 
      } 
      function animate() { 
          ctx.clearRect(0, 0, canvas.width, canvas.height); 
          particles.forEach(p => { 
              p.x += p.vx; p.y += p.vy; 
              if (p.x < 0 || p.x > canvas.width) p.vx *= -1; if (p.y < 0 || p.y > canvas.height) p.vy *= -1; 
-             ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); 
-             ctx.fillStyle = p.color; ctx.fill(); 
+             ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fillStyle = p.color; ctx.fill(); 
          }); 
          requestAnimationFrame(animate); 
      } 
@@ -367,7 +350,7 @@
          for (var i = 0; i < reveals.length; i++) { 
              var windowHeight = window.innerHeight; 
              var elementTop = reveals[i].getBoundingClientRect().top; 
-             if (elementTop < windowHeight - 80) { reveals[i].classList.add("active"); } 
+             if (elementTop < windowHeight - 60) { reveals[i].classList.add("active"); } 
          }
          const scrollBtn = document.getElementById("scrollTop");
          if (document.documentElement.scrollTop > 500) { scrollBtn.style.display = "block"; } else { scrollBtn.style.display = "none"; }
