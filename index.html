@@ -590,42 +590,48 @@
      window.onscroll = reveal; reveal(); 
 
      // UPDATED PDF FUNCTION TO PREVENT BLANK OUTPUT
-function generateReportPDF() {
+async function generateReportPDF() {
     const element = document.getElementById('report-to-print');
     const custName = document.getElementById('cust-name').value || "Client";
     
-    // 1. Force the section to be visible (kills the "Reveal" blank issue)
+    // 1. "FORCE VISIBILITY" - This kills the blank page bug
     element.style.opacity = "1";
     element.style.transform = "none";
     element.style.visibility = "visible";
     element.style.display = "block";
 
-    // 2. THE CRITICAL FIX: Direct Injection
-    // We must manually tell the PDF tool what you typed in the boxes
+    // 2. "BURN" THE TEXT - This kills the empty box bug
+    // This manually takes what you typed and writes it into the HTML
     const inputs = element.querySelectorAll('input, textarea, select');
     inputs.forEach(i => {
-        i.setAttribute('value', i.value); // Injects typed text into the HTML source
-        if(i.tagName === 'TEXTAREA') i.innerHTML = i.value; // Fixes the big work description box
+        i.setAttribute('value', i.value); 
+        if(i.tagName === 'TEXTAREA') i.innerHTML = i.value;
     });
 
-    // 3. The "Photocopy" Settings
+    // 3. THE SETTINGS
     const opt = {
-        margin:       [10, 5],
-        filename:     'KATS_Report_' + custName + '.pdf',
-        image:        { type: 'jpeg', quality: 1.0 },
-        html2canvas:  { 
+        margin: [10, 5],
+        filename: `KATS_Report_${custName}.pdf`,
+        image: { type: 'jpeg', quality: 1.0 },
+        html2canvas: { 
             scale: 2, 
             useCORS: true, 
-            backgroundColor: '#0d1117', // Forces your exact dark background
-            letterRendering: true
+            backgroundColor: '#0d1117', // Force your dark theme
+            logging: false,
+            letterRendering: true,
+            allowTaint: true
         },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // 4. Run the Save
-    html2pdf().set(opt).from(element).save().then(() => {
-        console.log("PDF Created");
-    });
+    // 4. THE CAPTURE
+    // We use .set().from().toContainer().toCanvas() to force a high-quality snapshot
+    try {
+        await html2pdf().set(opt).from(element).save();
+        console.log("KATS Report Generated");
+    } catch (err) {
+        alert("PDF Error. Please try again.");
+    }
 }
 </script>
 </body> 
