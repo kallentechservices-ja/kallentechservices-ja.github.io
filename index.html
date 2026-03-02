@@ -591,36 +591,40 @@
 
      // UPDATED PDF FUNCTION TO PREVENT BLANK OUTPUT
 function generateReportPDF() {
-    // 1. Target the report
     const element = document.getElementById('report-to-print');
     const custName = document.getElementById('cust-name').value || "Client";
     
-    // 2. Force the report to be 100% visible before the snapshot
-    // This stops the "Reveal" animation from hiding it from the PDF
+    // 1. Force the section to be visible (kills the "Reveal" blank issue)
     element.style.opacity = "1";
     element.style.transform = "none";
     element.style.visibility = "visible";
     element.style.display = "block";
 
+    // 2. THE CRITICAL FIX: Direct Injection
+    // We must manually tell the PDF tool what you typed in the boxes
+    const inputs = element.querySelectorAll('input, textarea, select');
+    inputs.forEach(i => {
+        i.setAttribute('value', i.value); // Injects typed text into the HTML source
+        if(i.tagName === 'TEXTAREA') i.innerHTML = i.value; // Fixes the big work description box
+    });
+
     // 3. The "Photocopy" Settings
     const opt = {
         margin:       [10, 5],
         filename:     'KATS_Report_' + custName + '.pdf',
-        image:        { type: 'jpeg', quality: 1.0 }, // 1.0 = Highest Quality
+        image:        { type: 'jpeg', quality: 1.0 },
         html2canvas:  { 
             scale: 2, 
             useCORS: true, 
-            backgroundColor: '#0d1117', // Forces your dark background color
-            removeContainer: true
+            backgroundColor: '#0d1117', // Forces your exact dark background
+            letterRendering: true
         },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
     // 4. Run the Save
     html2pdf().set(opt).from(element).save().then(() => {
-        console.log("PDF Generated Successfully");
-    }).catch(err => {
-        alert("PDF Error: " + err);
+        console.log("PDF Created");
     });
 }
 </script>
