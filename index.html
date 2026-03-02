@@ -1,38 +1,63 @@
-<div class="digital-field-report">
-    <h2>Digital Field Report</h2>
-    <form id="fieldReportForm">
-        <label for="reporterName">Name:</label>
-        <input type="text" id="reporterName" name="reporterName" required>
-        
-        <label for="reportDate">Date:</label>
-        <input type="date" id="reportDate" name="reportDate" required>
-        
-        <label for="reportDescription">Description:</label>
-        <textarea id="reportDescription" name="reportDescription" required></textarea>
-        
-        <input type="submit" value="Submit Report">
-    </form>
-</div>
-<style>
-    .digital-field-report {
-        border: 1px solid #ccc;
-        padding: 15px;
-        margin: 20px 0;
-        background-color: #f9f9f9;
-    }
-    .digital-field-report h2 {
-        color: #333;
-    }
-    .digital-field-report label {
-        display: block;
-        margin-bottom: 8px;
-    }
-    .digital-field-report input,
-    .digital-field-report textarea {
-        width: 100%;
-        margin-bottom: 12px;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kallentech Services</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="loader">Loading...</div>
+
+    <header>
+        <h1>Welcome to Kallentech Services</h1>
+        <nav>
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#case-studies">Case Studies</a></li>
+                <li><a href="#field-logs">Field Logs</a></li>
+                <li><a href="#contact">Contact Hub</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-item">Service 1</div>
+            <div class="service-item">Service 2</div>
+            <div class="service-item">Service 3</div>
+        </div>
+    </section>
+
+    <section id="case-studies">
+        <h2>Case Studies</h2>
+        <div class="case-study">
+            <h3>Case Study 1</h3>
+            <p>Description of case study 1.</p>
+        </div>
+        <div class="case-study">
+            <h3>Case Study 2</h3>
+            <p>Description of case study 2.</p>
+        </div>
+    </section>
+
+    <section id="field-logs">
+        <h2>Field Logs</h2>
+        <p>Details of field logs.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Hub</h2>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
