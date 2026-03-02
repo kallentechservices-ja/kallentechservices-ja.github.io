@@ -591,53 +591,36 @@
 
      // UPDATED PDF FUNCTION TO PREVENT BLANK OUTPUT
 function generateReportPDF() {
+    // 1. Target the report
     const element = document.getElementById('report-to-print');
     const custName = document.getElementById('cust-name').value || "Client";
     
-    // 1. Create a "Hidden Twin" of the report so the PDF can see it clearly
-    const clone = element.cloneNode(true);
-    
-    // 2. Force the twin to be visible and solid (Fixes the blank/black issue)
-    clone.style.opacity = "1";
-    clone.style.visibility = "visible";
-    clone.style.transform = "none";
-    clone.style.display = "block";
-    clone.style.background = "#0d1117"; // Matches your dark theme
-    clone.style.color = "white";
-    clone.style.width = "850px"; // Keeps the layout tight
-    clone.style.padding = "40px";
+    // 2. Force the report to be 100% visible before the snapshot
+    // This stops the "Reveal" animation from hiding it from the PDF
+    element.style.opacity = "1";
+    element.style.transform = "none";
+    element.style.visibility = "visible";
+    element.style.display = "block";
 
-    // 3. Manually move your typed text into the twin
-    const originalInputs = element.querySelectorAll('input, textarea, select');
-    const cloneInputs = clone.querySelectorAll('input, textarea, select');
-    
-    originalInputs.forEach((input, index) => {
-        // This line ensures the words you typed actually appear on the PDF
-        cloneInputs[index].value = input.value;
-        cloneInputs[index].style.color = "white";
-        cloneInputs[index].style.background = "rgba(255,255,255,0.05)";
-    });
-
-    // 4. PDF settings
+    // 3. The "Photocopy" Settings
     const opt = {
-        margin:       10,
+        margin:       [10, 5],
         filename:     'KATS_Report_' + custName + '.pdf',
-        image:        { type: 'jpeg', quality: 1.0 },
+        image:        { type: 'jpeg', quality: 1.0 }, // 1.0 = Highest Quality
         html2canvas:  { 
             scale: 2, 
             useCORS: true, 
-            backgroundColor: '#010409' 
+            backgroundColor: '#0d1117', // Forces your dark background color
+            removeContainer: true
         },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // 5. Put the twin on the page momentarily (hidden from view) and "Snap" it
-    clone.style.position = "fixed";
-    clone.style.top = "-9999px"; 
-    document.body.appendChild(clone);
-
-    html2pdf().set(opt).from(clone).save().then(() => {
-        document.body.removeChild(clone); // Delete the twin after saving
+    // 4. Run the Save
+    html2pdf().set(opt).from(element).save().then(() => {
+        console.log("PDF Generated Successfully");
+    }).catch(err => {
+        alert("PDF Error: " + err);
     });
 }
 </script>
