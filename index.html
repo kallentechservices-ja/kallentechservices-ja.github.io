@@ -322,45 +322,46 @@
      </div> 
 
 <div class="reveal" id="report-section" style="margin-top: 100px; padding-bottom: 50px;">
-   <h2 style="text-align: center; color: var(--light-blue); letter-spacing: 5px; font-weight: 900; text-transform: uppercase;">ENGINEERING ACTIVITY REPORT</h2>
-   <div class="card" style="padding: 40px; max-width: 900px; margin: 40px auto; border: 1px solid var(--light-blue); background: #0d1117;" id="report-to-print">
-       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--light-blue); padding-bottom: 20px; margin-bottom: 30px;">
-           <img src="logo.png" style="width: 100px; background: white; border-radius: 50%; padding: 5px;" alt="KATS Logo">
-           <div style="text-align: right;">
-               <h3 style="margin: 0; color: var(--light-blue); font-family: 'Courier New', monospace;">FIELD ACTIVITY LOG</h3>
-               <p style="font-size: 0.8rem; margin: 5px 0 0; color: var(--neon-green);">K. ALLEN TECH SERVICES</p>
-           </div>
-       </div>
+    <h2 style="text-align: center; color: var(--light-blue); letter-spacing: 5px; font-weight: 900; text-transform: uppercase;">ENGINEERING ACTIVITY REPORT</h2>
+    
+    <div class="card" style="padding: 40px; max-width: 900px; margin: 40px auto; border: 1px solid var(--light-blue); background: #0d1117;" id="report-to-print">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--light-blue); padding-bottom: 20px; margin-bottom: 30px;">
+            <img src="logo.png" style="width: 100px; background: white; border-radius: 50%; padding: 5px;" alt="KATS Logo">
+            <div style="text-align: right;">
+                <h3 style="margin: 0; color: var(--light-blue); font-family: 'Courier New', monospace;">FIELD ACTIVITY LOG</h3>
+                <p style="font-size: 0.8rem; margin: 5px 0 0; color: var(--neon-green);">K. ALLEN TECH SERVICES</p>
+            </div>
+        </div>
 
-       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
-           <input type="text" id="cust-name" placeholder="CLIENT NAME" style="background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; font-family: monospace; width: 100%;">
-           <input type="text" id="call-no" placeholder="TICKET / CALL NO." style="background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; font-family: monospace; width: 100%;">
-           <input type="text" id="model-no" placeholder="EQUIPMENT MODEL" style="background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; font-family: monospace; width: 100%;">
-           <input type="text" id="serial-no" placeholder="SERIAL NUMBER (S/N)" style="background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; font-family: monospace; width: 100%;">
-       </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+            <input type="text" id="cust-name" placeholder="CLIENT NAME" style="background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; font-family: monospace; width: 100%;">
+            <input type="text" id="call-no" placeholder="TICKET / CALL NO." style="background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; font-family: monospace; width: 100%;">
+            <input type="text" id="model-no" placeholder="EQUIPMENT MODEL" style="background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; font-family: monospace; width: 100%;">
+            <input type="text" id="serial-no" placeholder="SERIAL NUMBER (S/N)" style="background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; font-family: monospace; width: 100%;">
+        </div>
 
-       <div style="margin-bottom: 30px;">
-           <label style="font-size: 0.7rem; color: var(--neon-green); letter-spacing: 2px;">WORK PERFORMED / DIAGNOSTICS:</label>
-           <textarea id="activity-desc" rows="8" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid #333; color: white; padding: 15px; border-radius: 8px; margin-top: 10px; font-family: 'Courier New', monospace; resize: none;"></textarea>
-       </div>
+        <div style="margin-bottom: 30px;">
+            <label style="font-size: 0.7rem; color: var(--neon-green); letter-spacing: 2px;">WORK PERFORMED / DIAGNOSTICS:</label>
+            <textarea id="activity-desc" rows="8" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid #333; color: white; padding: 15px; border-radius: 8px; margin-top: 10px; font-family: 'Courier New', monospace; resize: none;"></textarea>
+        </div>
 
-       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; border-top: 1px solid rgba(0, 210, 255, 0.2); padding-top: 25px;">
-           <div>
-               <label style="font-size: 0.6rem; color: var(--light-blue);">SERVICE DATE</label>
-               <input type="date" id="service-date" style="width:100%; background: #1a1a1a; color: white; border: 1px solid #333; padding: 8px; border-radius: 4px;">
-           </div>
-           <div>
-               <label style="font-size: 0.6rem; color: var(--light-blue);">ENGINEER</label>
-               <select id="eng-name" style="width:100%; background: #1a1a1a; color: white; border: 1px solid #333; padding: 8px; border-radius: 4px;">
-                   <option>Kirk Allen</option>
-                   <option>Marquino Allen</option>
-               </select>
-           </div>
-       </div>
-   </div>
-   <div style="text-align: center;">
-       <button class="btn-glow" onclick="generateReportPDF()" style="padding: 20px 50px;">GENERATE OFFICIAL PDF</button>
-   </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; border-top: 1px solid rgba(0, 210, 255, 0.2); padding-top: 25px;">
+            <div>
+                <label style="font-size: 0.6rem; color: var(--light-blue);">SERVICE DATE</label>
+                <input type="date" id="service-date" style="width:100%; background: #1a1a1a; color: white; border: 1px solid #333; padding: 8px; border-radius: 4px;">
+            </div>
+            <div>
+                <label style="font-size: 0.6rem; color: var(--light-blue);">ENGINEER</label>
+                <select id="eng-name" style="width:100%; background: #1a1a1a; color: white; border: 1px solid #333; padding: 8px; border-radius: 4px;">
+                    <option>Kirk Allen</option>
+                    <option>Marquino Allen</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <button class="btn-glow" onclick="generateReportPDF()" style="padding: 20px 50px;">GENERATE OFFICIAL PDF</button>
+    </div>
 </div>
 
      <div class="contact-hub reveal"> 
@@ -588,49 +589,53 @@
 
      // UPDATED PDF FUNCTION TO PREVENT BLANK OUTPUT
 function generateReportPDF() {
-   const element = document.getElementById('report-to-print');
-   const custName = document.getElementById('cust-name').value || "Client";
-   
-   // Create a clone to avoid messing up the live UI
-   const opt = {
-       margin:       [10, 10],
-       filename:     'KATS_Report_' + custName + '.pdf',
-       image:        { type: 'jpeg', quality: 0.98 },
-       html2canvas:  { 
-           scale: 2, 
-           letterRendering: true,
-           useCORS: true,
-           backgroundColor: '#ffffff' 
-       },
-       jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-   };
+    const element = document.getElementById('report-to-print');
+    const custName = document.getElementById('cust-name').value || "Client";
+    
+    // 1. Force the element to be visible and use solid colors for the capture
+    // This prevents the 'reveal' class (opacity 0) or transparency from making it blank
+    const originalStyle = element.getAttribute('style');
+    element.style.opacity = "1";
+    element.style.transform = "none";
+    element.style.background = "white";
+    element.style.color = "black";
+    element.style.position = "relative";
+    element.style.zIndex = "9999";
 
-   // Force visibility for the generator
-   const originalStyles = {
-       background: element.style.background,
-       color: element.style.color
-   };
+    const inputs = element.querySelectorAll('input, textarea, select');
+    inputs.forEach(i => {
+        i.style.color = "black";
+        i.style.background = "#f0f0f0";
+        i.style.border = "1px solid #000";
+        // Ensure values are visible
+        if(i.tagName === 'TEXTAREA' || i.type === 'text') {
+            i.style.fontSize = "12pt";
+        }
+    });
 
-   element.style.background = "white";
-   element.style.color = "black";
-   
-   const inputs = element.querySelectorAll('input, textarea, select');
-   inputs.forEach(i => {
-       i.style.color = "black";
-       i.style.background = "#f9f9f9";
-       i.style.border = "1px solid #000";
-   });
+    const opt = {
+        margin:       [10, 10, 10, 10],
+        filename:     'KATS_Report_' + custName.replace(/\s+/g, '_') + '.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { 
+            scale: 2, 
+            useCORS: true, 
+            backgroundColor: '#ffffff',
+            logging: true // Helpful for debugging
+        },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
 
-   html2pdf().set(opt).from(element).save().then(() => {
-       // Restore original "Dark Tech" styles after saving
-       element.style.background = originalStyles.background;
-       element.style.color = originalStyles.color;
-       inputs.forEach(i => {
-           i.style.color = "white";
-           i.style.background = "rgba(255,255,255,0.05)";
-           i.style.border = "1px solid #333";
-       });
-   });
+    // 2. Generate PDF
+    html2pdf().set(opt).from(element).save().then(() => {
+        // 3. Restore the original "Cyber" styling after download
+        element.setAttribute('style', originalStyle);
+        inputs.forEach(i => {
+            i.style.color = "white";
+            i.style.background = "rgba(255,255,255,0.05)";
+            i.style.border = "1px solid #333";
+        });
+    });
 }
 </script>
 </body> 
