@@ -1,22 +1,36 @@
 async function generateReportPDF() {
-    // These IDs MUST match the 'id' attributes in your <input> tags exactly
+    // 1. Capture the exact values from your form IDs
+    const customerValue = document.getElementById('cust-name').value;
+    const ticketValue = document.getElementById('call-no').value;
+    const modelValue = document.getElementById('model-no').value;
+    const serialValue = document.getElementById('serial-no').value;
+    const descValue = document.getElementById('activity-desc').value;
+    const dateValue = document.getElementById('service-date').value;
+    const engineerValue = document.getElementById('eng-name').value;
+
+    // 2. Map them to the {tags} in your Word document
     const formData = {
-        customer: document.getElementById('cust-name').value,
-        ticket: document.getElementById('call-no').value,
-        model: document.getElementById('model-no').value,
-        serial: document.getElementById('serial-no').value,
-        description: document.getElementById('activity-desc').value,
-        date: document.getElementById('service-date').value,
-        engineer: document.getElementById('eng-name').value
+        customer: customerValue || "N/A",
+        ticket: ticketValue || "N/A",
+        model: modelValue || "N/A",
+        serial: serialValue || "N/A",
+        description: descValue || "No diagnostic details provided.",
+        date: dateValue || new Date().toLocaleDateString(),
+        engineer: engineerValue || "Kirk Allen"
     };
 
     try {
-        const response = await fetch('./template.docx'); // Pointing to the current folder
+        const response = await fetch('./template.docx');
         const content = await response.arrayBuffer();
         const zip = new PizZip(content);
-        const doc = new window.docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
+        
+        // This line is critical for handling line breaks in your description
+        const doc = new window.docxtemplater(zip, { 
+            paragraphLoop: true, 
+            linebreaks: true 
+        });
 
-        // This injects the data into your template
+        // 3. Inject the data
         doc.render(formData);
 
         const out = doc.getZip().generate({
@@ -24,10 +38,11 @@ async function generateReportPDF() {
             mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         });
 
-        // Save file with customer name
+        // 4. Save with a clean filename
         saveAs(out, `KATS_Report_${formData.customer.replace(/\s+/g, '_')}.docx`);
+        
     } catch (error) {
         console.error("Template Error:", error);
-        alert("Error generating report. Check console for details.");
+        alert("Report Error: Please ensure all fields are filled.");
     }
 }
