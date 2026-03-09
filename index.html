@@ -421,7 +421,7 @@
     <p>© 2026 (K.A.T.S) K. ALLEN TECH SERVICES | <a href="javascript:void(0)" onclick="openTos()" style="color: var(--light-blue); text-decoration: none; font-weight: bold;">Legal & Terms</a></p>
  </footer>
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/html2pdf.js-stable-fix@0.10.1/dist/html2pdf.bundle.min.js"></script>
 
  <script> 
      let overrideStep = 0;
@@ -594,40 +594,31 @@ async function generateReportPDF() {
     const element = document.getElementById('report-to-print');
     const custName = document.getElementById('cust-name').value || "Client";
     
-    // 1. Prepare the settings
+    // Force the element to be visible
+    element.style.opacity = "1";
+    element.style.visibility = "visible";
+    element.style.display = "block";
+
     const opt = {
-        margin: [10, 5],
+        margin: [10, 10],
         filename: `KATS_Report_${custName}.pdf`,
-        image: { type: 'jpeg', quality: 1.0 },
+        image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
-            scale: 2, 
-            useCORS: true, 
+            scale: 1, // Lowering scale to 1 often fixes the blank page crash
+            useCORS: true,
             backgroundColor: '#0d1117',
-            // THIS IS THE KEY: We force the "clone" to be visible
-            onclone: (clonedDoc) => {
-                const report = clonedDoc.getElementById('report-to-print');
-                report.style.opacity = "1";
-                report.style.visibility = "visible";
-                report.style.transform = "none";
-                report.style.display = "block";
-                
-                // Manually push your typed text into the clone's value fields
-                const originalInputs = element.querySelectorAll('input, textarea, select');
-                const clonedInputs = report.querySelectorAll('input, textarea, select');
-                originalInputs.forEach((input, index) => {
-                    clonedInputs[index].value = input.value;
-                });
-            }
+            removeContainer: true
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // 2. Execute with a slight delay to ensure the browser has "locked" the text
+    // Use a Promise to wait 500ms so the browser can finish rendering the text
+    await new Promise(resolve => setTimeout(resolve, 500));
+
     try {
         await html2pdf().set(opt).from(element).save();
-        console.log("KATS PDF SUCCESS");
     } catch (err) {
-        alert("System Error: Please refresh and try again.");
+        console.error("PDF generation failed:", err);
     }
 }
 </script>
