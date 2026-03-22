@@ -176,6 +176,62 @@
         #scrollTop { bottom: 120px; right: 20px; width: 50px; height: 50px; }
         .contact-hub { padding: 50px 20px; }
     }
+
+    /* TERMINAL CONSOLE STYLING */
+    .terminal-container {
+        max-width: 850px;
+        margin: 40px auto;
+        background: #0d1117;
+        border: 1px solid var(--light-blue);
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
+        font-family: 'Courier New', monospace;
+        overflow: hidden;
+        backdrop-filter: blur(15px);
+    }
+
+    .terminal-header {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+    }
+
+    .terminal-button { height: 12px; width: 12px; border-radius: 50%; margin-right: 8px; display: inline-block; }
+    .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+
+    .terminal-title { color: #888; font-size: 0.8rem; margin-left: 10px; font-weight: bold; letter-spacing: 1px; }
+
+    .terminal-body {
+        height: 350px;
+        padding: 20px;
+        overflow-y: auto;
+        color: var(--neon-green);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        text-shadow: 0 0 5px rgba(0, 255, 102, 0.3);
+    }
+
+    .terminal-footer {
+        background: rgba(0, 0, 0, 0.7);
+        border-top: 1px solid rgba(0, 210, 255, 0.2);
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .prompt { color: var(--light-blue); font-size: 0.9rem; margin-right: 12px; font-weight: bold; }
+
+    #terminal-input {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        width: 100%;
+        outline: none;
+    }
     </style>
 </head> 
 <body> 
@@ -321,6 +377,27 @@
           </div> 
      </div> 
 
+     <div class="reveal" style="margin-top: 100px;">
+        <h2 style="text-align: center; color: var(--light-blue); letter-spacing: 5px; font-weight: 900; text-transform: uppercase;">KATS Live Diagnostic Hub</h2>
+        
+        <div class="terminal-container">
+            <div class="terminal-header">
+                <span class="terminal-button red"></span>
+                <span class="terminal-button yellow"></span>
+                <span class="terminal-button green"></span>
+                <span class="terminal-title">KATS_DIAGNOSTICS_v3.0.sys</span>
+            </div>
+            
+            <div class="terminal-body" id="terminal-output">
+                </div>
+
+            <div class="terminal-footer">
+                <span class="prompt">KATS_ADMIN:~$</span>
+                <input type="text" id="terminal-input" autocomplete="off" placeholder="Type /help to see commands...">
+            </div>
+        </div>
+     </div>
+     
      <div class="contact-hub reveal"> 
           <h2 style="color: var(--light-blue); letter-spacing: 5px; font-weight: 900; text-transform: uppercase;">Command Center</h2> 
           <div class="address-highlight" style="margin-bottom: 25px; font-size: 1.2rem; color: #fff; font-weight: 300;"> 
@@ -541,6 +618,71 @@
           if (document.documentElement.scrollTop > 600) { scrollBtn.style.display = "block"; } else { scrollBtn.style.display = "none"; }
      } 
      window.onscroll = reveal; reveal();
+
+     // KATS LIVE TERMINAL LOGIC
+     document.addEventListener("DOMContentLoaded", () => {
+         const terminal = document.getElementById("terminal-output");
+         const tInput = document.getElementById("terminal-input");
+
+         const automatedLogs = [
+             "> Connecting to KATS Kingston Node 01...",
+             "> [OK] Hardware thermal check passing.",
+             "> Scanning registry for diagnostic logs...",
+             "> [ALERT] BIOS profile check: Voltage fluctuations detected.",
+             "> Loading computer repair utilities...",
+             "> Auditing network packets...",
+             "> Standard maintenance procedures in effect."
+         ];
+
+         let autoLogIndex = 0;
+
+         // Typewriter effect generator for realism
+         function pushMessage(msg, color = "") {
+             const line = document.createElement("div");
+             line.textContent = msg;
+             if(color) line.style.color = color;
+             terminal.appendChild(line);
+             terminal.scrollTop = terminal.scrollHeight; // Auto scroll
+         }
+
+         function autoScrollLogs() {
+             if (autoLogIndex >= automatedLogs.length) { autoLogIndex = 0; terminal.innerHTML = ""; } // Reset to clear memory
+             
+             let msg = automatedLogs[autoLogIndex];
+             let color = msg.includes("[ALERT]") ? "#ff0055" : (msg.includes("[OK]") ? "var(--neon-green)" : "");
+             pushMessage(msg, color);
+
+             autoLogIndex++;
+             setTimeout(autoScrollLogs, Math.random() * 3000 + 2000); // Random offset to look natural
+         }
+
+         // Start system scrolling
+         autoScrollLogs();
+
+         // Manual User Typing Commands
+         tInput.addEventListener("keypress", (e) => {
+             if (e.key === "Enter") {
+                 const cmd = tInput.value.trim().toLowerCase();
+                 tInput.value = ""; // Flush input
+
+                 pushMessage(`$ ${cmd}`, "var(--light-blue)");
+
+                 if (cmd === "/clear" || cmd === "clear") {
+                     terminal.innerHTML = "";
+                     pushMessage("> Console wiped successfully.");
+                 } else if (cmd === "/scan") {
+                     pushMessage("> Running deep repair diagnostic...");
+                     setTimeout(() => pushMessage("> No critical faults found. All systems nominal.", "var(--neon-green)"), 1500);
+                 } else if (cmd === "/help") {
+                     pushMessage("> Available commands: /help, /scan, /clear, /about");
+                 } else if (cmd === "/about") {
+                     pushMessage("> KATS v3.0 // Proprietary Father & Son Engineering OS.");
+                 } else {
+                     pushMessage(`> Unrecognized command: '${cmd}'. Type /help for assistance.`, "#ff0055");
+                 }
+             }
+         });
+     });
 </script>  
 </body> 
 </html>
