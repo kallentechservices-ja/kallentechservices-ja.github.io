@@ -673,8 +673,14 @@
                  } else if (cmd === "/scan") {
                      pushMessage("> Running deep repair diagnostic...");
                      setTimeout(() => pushMessage("> No critical faults found. All systems nominal.", "var(--neon-green)"), 1500);
-                 } else if (cmd === "/help") {
-                     pushMessage("> Available commands: /help, /scan, /clear, /about");
+                } else if (cmd === "/help") {
+                     pushMessage("> Available KATS_ADMIN utilities:");
+                     pushMessage("  /scan     - Triggers local area diagnostic Sweep");
+                     pushMessage("  /status   - Fetches Node_01 live hardware metrics");
+                     pushMessage("  /system   - Detects your current screen & browser profile");
+                     pushMessage("  /download - Pulls blank standard Word report from repo");
+                     pushMessage("  /clear    - Purges active terminal buffer history");
+                 }
                  } else if (cmd === "/about") {
                      pushMessage("> KATS v3.0 // Proprietary Father & Son Engineering OS.");
                  } else {
@@ -683,6 +689,82 @@
              }
          });
      });
+
+    // Locate this section in your script and add the /status block:
+
+    if (cmd === "/clear" || cmd === "clear") {
+        terminal.innerHTML = "";
+        pushMessage("> Console wiped successfully.");
+    } else if (cmd === "/scan") {
+        pushMessage("> Running deep repair diagnostic...");
+        setTimeout(() => pushMessage("> No critical faults found. All systems nominal.", "var(--neon-green)"), 1500);
+    } else if (cmd === "/status") {
+    pushMessage("> Interrogating KATS Node_01 hardware telemetry...", "var(--light-blue)");
+
+    setTimeout(() => {
+        // Generate random but realistic numbers
+        const cpuTemp = Math.floor(Math.random() * (65 - 38) + 38); // 38C to 65C
+        const cpuUsage = Math.floor(Math.random() * (85 - 5) + 5);   // 5% to 85%
+        const gpuTemp = Math.floor(Math.random() * (75 - 45) + 45); // 45C to 75C
+        const ramUsed = (Math.random() * (12.4 - 2.1) + 2.1).toFixed(1); // 2.1GB to 12.4GB
+
+        pushMessage(`  [CPU] Core Temp: ${cpuTemp}°C // Utilization: ${cpuUsage}%`, cpuTemp > 60 ? "#ff0055" : "var(--neon-green)");
+        pushMessage(`  [GPU] Junction: ${gpuTemp}°C // VRAM Allocated: ${ramUsed} GB`, "var(--neon-green)");
+        pushMessage("  [PSU] Rail Voltages: +12.1V // +5.0V // +3.3V [STABLE]", "var(--neon-green)");
+        pushMessage("  [NET] Link Speed: 1000 Mbps // ISP Packet Loss: 0.00%", "var(--neon-green)");
+        pushMessage("  [UPTIME] 14 days, 02 hours, 12 mins [Node Live]", "var(--light-blue)");
+    }, 1200);
+    } else if (cmd === "/system") {
+    pushMessage("> Polling local machine environment...", "var(--light-blue)");
+
+    setTimeout(() => {
+        // Actual JavaScript environment tracking
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+        const userAgent = navigator.userAgent;
+        
+        let os = "Unknown OS";
+        if (userAgent.indexOf("Win") !== -1) os = "Windows OS";
+        if (userAgent.indexOf("Mac") !== -1) os = "macOS";
+        if (userAgent.indexOf("Linux") !== -1) os = "Linux Environment";
+        if (userAgent.indexOf("Android") !== -1) os = "Android OS";
+        if (userAgent.indexOf("like Mac") !== -1) os = "iOS Platform";
+
+        let browser = "Standard Web Browser";
+        if (userAgent.indexOf("Chrome") !== -1) browser = "Chrome Engine";
+        else if (userAgent.indexOf("Safari") !== -1) browser = "Safari Engine";
+        else if (userAgent.indexOf("Firefox") !== -1) browser = "Firefox Quantum";
+        else if (userAgent.indexOf("Edge") !== -1) browser = "Edge Chromium";
+
+        pushMessage(`  [OS Detected]  : ${os}`, "var(--neon-green)");
+        pushMessage(`  [Browser]      : ${browser}`, "var(--neon-green)");
+        pushMessage(`  [Resolution]   : ${screenWidth} x ${screenHeight} Pixels`, "var(--neon-green)");
+        pushMessage(`  [Language]     : ${navigator.language || "N/A"}`, "var(--neon-green)");
+        pushMessage(`  [Online State] : ${navigator.onLine ? "Synchronized" : "Offline"}`, "var(--light-blue)");
+    }, 1000);    
+    } else if (cmd === "/help") {
+        pushMessage("> Available commands: /help, /scan, /status, /clear, /about");
+    } else if (cmd === "/download") {
+    pushMessage("> Locating KATS Standard Field Template...", "var(--light-blue)");
+    
+    setTimeout(() => {
+        // Create an invisible link in the background
+        const downloadLink = document.createElement('a');
+        
+        // Point this exactly to the file name you uploaded to GitHub
+        downloadLink.href = './KATS_Blank_Report.docx'; 
+        downloadLink.download = 'KATS_Blank_Report.docx';
+        
+        // Append to page, click it automatically, then remove it
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+
+        pushMessage("> [OK] Blank KATS_Report.docx downloaded successfully.", "var(--neon-green)");
+    }, 1500);
+
+    } else if (cmd === "/help") {    
+    }
 </script>  
 </body> 
 </html>
