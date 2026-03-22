@@ -743,11 +743,17 @@
         pushMessage(`  [Online State] : ${navigator.onLine ? "Synchronized" : "Offline"}`, "var(--light-blue)");
     }, 1000);    
     } else if (cmd === "/help") {
-        pushMessage("> Available commands: /help, /scan, /status, /clear, /about");
+        pushMessage("> Available KATS_ADMIN utilities:");
+        pushMessage("  /scan     - Triggers local area diagnostic Sweep");
+        pushMessage("  /status   - Fetches Node_01 live hardware metrics");
+        pushMessage("  /system   - Detects your current screen & browser profile");
+        pushMessage("  /download - Pulls blank standard Word report from repo");
+        pushMessage("  /clear    - Purges active terminal buffer history");
+    }    
     } else if (cmd === "/download") {
-    pushMessage("> Locating KATS Standard Field Template...", "var(--light-blue)");
+        pushMessage("> Locating KATS Standard Field Template...", "var(--light-blue)");
     
-    setTimeout(() => {
+        setTimeout(() => {
         // Create an invisible link in the background
         const downloadLink = document.createElement('a');
         
