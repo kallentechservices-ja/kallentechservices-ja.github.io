@@ -58,16 +58,12 @@
         --card-glass: rgba(13, 17, 23, 0.85); 
     } 
 
-    /* ENHANCED K.A.T.S. HIGH-TECH PRELOADER */
     #loader-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 1s cubic-bezier(0.8, 0, 0.2, 1); }
-    
     .loader-logo-wrap { position: relative; margin-bottom: 30px; text-align: center; }
     .loader-logo-img { width: 110px; filter: drop-shadow(0 0 20px var(--light-blue)); animation: logoPulse 1.5s infinite alternate; }
     .loader-name { font-family: 'Courier New', monospace; font-size: 1.8rem; font-weight: 900; color: #fff; letter-spacing: 12px; margin-top: 20px; text-shadow: 0 0 10px var(--light-blue); text-transform: uppercase; }
-    
     .loader-bar-container { width: 300px; height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
     .loader-progress { position: absolute; height: 100%; background: linear-gradient(90deg, var(--neon-pink), var(--light-blue), var(--neon-green)); width: 0%; box-shadow: 0 0 20px var(--light-blue); }
-    
     .loader-status { font-family: 'Courier New', monospace; color: var(--light-blue); font-size: 0.75rem; margin-top: 15px; letter-spacing: 3px; font-weight: bold; text-transform: uppercase; }
 
     @keyframes logoPulse { from { filter: drop-shadow(0 0 5px var(--light-blue)); transform: scale(0.98); } to { filter: drop-shadow(0 0 25px var(--neon-green)); transform: scale(1.05); } }
@@ -150,7 +146,7 @@
     .hub-row i { color: var(--light-blue); font-size: 1.3rem; min-width: 30px; }
     .hub-row .label { color: var(--neon-green); font-weight: 800; font-size: 0.65rem; border: 1px solid var(--neon-green); padding: 3px 10px; border-radius: 5px; text-transform: uppercase; white-space: nowrap; }
 
-    .btn-glow { background: var(--light-blue); color: #000; padding: 22px 70px; border-radius: 15px; text-decoration: none; font-weight: 900; font-size: 1.1rem; display: inline-block; cursor: pointer; border: none; box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); margin: 35px 0; transition: 0.3s; letter-spacing: 2px; }
+    .btn-glow { background: var(--light-blue); color: #000; padding: 22px 70px; border-radius: 15px; text-decoration: none; font-weight: 900; font-size: 1.1rem; display: inline-block; cursor: pointer; border: none; box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); margin: 35px 0; transition: 0.3s; letter-spacing: 2px; position: relative; z-index: 10; }
     .btn-glow:hover { transform: scale(1.05); box-shadow: 0 0 40px var(--light-blue); }
 
     .social-btn { width: 65px; height: 65px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; color: #fff; text-decoration: none; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); backdrop-filter: blur(5px); }
@@ -168,13 +164,14 @@
 
     @media (max-width: 768px) {
         h1 { font-size: 2.4rem; letter-spacing: 4px; }
-        .side-dock { bottom: 0; top: auto; width: 100%; height: 70px; flex-direction: row; left: 0; transform: none; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); border-top: 1px solid var(--light-blue); justify-content: center; padding: 0; gap: 10px; right: 0; }
+        .side-dock { bottom: 0; top: auto; width: 100%; height: 70px; flex-direction: row; left: 0; transform: none; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); border-top: 1px solid var(--light-blue); justify-content: center; padding: 0; gap: 10px; right: 0; z-index: 4000; }
         .side-tile { width: 45px; height: 45px; border-radius: 10px; }
         .side-tile::before { display: none; }
         .hub-list { grid-template-columns: 1fr; }
         .container { padding: 10px 20px 140px; }
         #scrollTop { bottom: 120px; right: 20px; width: 50px; height: 50px; }
         .contact-hub { padding: 50px 20px; }
+        .btn-glow { padding: 18px 40px; font-size: 1rem; width: 90%; }
     }
 
     /* TERMINAL CONSOLE STYLING */
@@ -189,49 +186,14 @@
         overflow: hidden;
         backdrop-filter: blur(15px);
     }
-
-    .terminal-header {
-        background: rgba(0, 0, 0, 0.5);
-        padding: 15px;
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid rgba(0, 210, 255, 0.2);
-    }
-
+    .terminal-header { background: rgba(0, 0, 0, 0.5); padding: 15px; display: flex; align-items: center; border-bottom: 1px solid rgba(0, 210, 255, 0.2); }
     .terminal-button { height: 12px; width: 12px; border-radius: 50%; margin-right: 8px; display: inline-block; }
     .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
-
     .terminal-title { color: #888; font-size: 0.8rem; margin-left: 10px; font-weight: bold; letter-spacing: 1px; }
-
-    .terminal-body {
-        height: 350px;
-        padding: 20px;
-        overflow-y: auto;
-        color: var(--neon-green);
-        font-size: 0.9rem;
-        line-height: 1.6;
-        text-shadow: 0 0 5px rgba(0, 255, 102, 0.3);
-    }
-
-    .terminal-footer {
-        background: rgba(0, 0, 0, 0.7);
-        border-top: 1px solid rgba(0, 210, 255, 0.2);
-        padding: 12px 20px;
-        display: flex;
-        align-items: center;
-    }
-
+    .terminal-body { height: 350px; padding: 20px; overflow-y: auto; color: var(--neon-green); font-size: 0.9rem; line-height: 1.6; text-shadow: 0 0 5px rgba(0, 255, 102, 0.3); }
+    .terminal-footer { background: rgba(0, 0, 0, 0.7); border-top: 1px solid rgba(0, 210, 255, 0.2); padding: 12px 20px; display: flex; align-items: center; }
     .prompt { color: var(--light-blue); font-size: 0.9rem; margin-right: 12px; font-weight: bold; }
-
-    #terminal-input {
-        background: transparent;
-        border: none;
-        color: #fff;
-        font-family: 'Courier New', monospace;
-        font-size: 0.9rem;
-        width: 100%;
-        outline: none;
-    }
+    #terminal-input { background: transparent; border: none; color: #fff; font-family: 'Courier New', monospace; font-size: 0.9rem; width: 100%; outline: none; }
     </style>
 </head> 
 <body> 
@@ -335,55 +297,53 @@
             </div>
 
             <div style="background: rgba(13, 17, 23, 0.6); border: 1px solid var(--neon-green); border-radius: 20px; overflow: hidden; backdrop-filter: blur(10px);">
-    <!-- BEFORE & AFTER IMAGE CONTAINER -->
-    <div style="height: 250px; display: flex; gap: 2px; overflow: hidden; position: relative;">
-        <div style="width: 50%; position: relative;">
-            <img src="hp15-before.jpg" alt="HP 15 Damaged" style="width: 100%; height: 100%; object-fit: cover;">
-            <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: #fff; font-size: 0.6rem; padding: 2px 6px; border-radius: 3px;">BEFORE</span>
-        </div>
-        <div style="width: 50%; position: relative;">
-            <img src="hp15-restored.jpg" alt="HP 15 Restored" style="width: 100%; height: 100%; object-fit: cover;">
-            <span style="position: absolute; bottom: 5px; right: 5px; background: var(--neon-green); color: #000; font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; font-weight: bold;">AFTER</span>
-        </div>
-        <div style="position: absolute; top: 10px; right: 10px; background: var(--neon-green); color: #000; padding: 4px 12px; border-radius: 4px; font-weight: 900; font-size: 0.7rem; z-index: 10;">SYSTEM_ONLINE</div>
-    </div>
-    
-    <div style="padding: 20px;">
-        <h4 style="color: var(--neon-green); margin: 0;">HP 15 Hardware Touch</h4>
-        <p style="font-size: 0.85rem; color: #bcc1c8;">Repaired detached top and bottom cases, securing structural integrity and restoring a clean, working desktop environment.</p>
-    </div>
-</div>
+                <div style="height: 250px; display: flex; gap: 2px; overflow: hidden; position: relative;">
+                    <div style="width: 50%; position: relative;">
+                        <img src="hp15-before.jpg" alt="HP 15 Damaged" style="width: 100%; height: 100%; object-fit: cover;">
+                        <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: #fff; font-size: 0.6rem; padding: 2px 6px; border-radius: 3px;">BEFORE</span>
+                    </div>
+                    <div style="width: 50%; position: relative;">
+                        <img src="hp15-restored.jpg" alt="HP 15 Restored" style="width: 100%; height: 100%; object-fit: cover;">
+                        <span style="position: absolute; bottom: 5px; right: 5px; background: var(--neon-green); color: #000; font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; font-weight: bold;">AFTER</span>
+                    </div>
+                    <div style="position: absolute; top: 10px; right: 10px; background: var(--neon-green); color: #000; padding: 4px 12px; border-radius: 4px; font-weight: 900; font-size: 0.7rem; z-index: 10;">SYSTEM_ONLINE</div>
+                </div>
+                <div style="padding: 20px;">
+                    <h4 style="color: var(--neon-green); margin: 0;">HP 15 Hardware Touch</h4>
+                    <p style="font-size: 0.85rem; color: #bcc1c8;">Repaired detached top and bottom cases, securing structural integrity and restoring a clean, working desktop environment.</p>
+                </div>
+            </div>
 
            <div style="background: rgba(13, 17, 23, 0.6); border: 1px solid var(--neon-gold); border-radius: 20px; overflow: hidden; backdrop-filter: blur(10px);">
-    <!-- BEFORE & AFTER IMAGE CONTAINER -->
-    <div style="height: 250px; display: flex; gap: 2px; overflow: hidden; position: relative;">
-        <div style="width: 50%; position: relative;">
-            <img src="hp255-before.jpg" alt="HP 255 Broken Display" style="width: 100%; height: 100%; object-fit: cover;">
-            <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: #fff; font-size: 0.6rem; padding: 2px 6px; border-radius: 3px;">BEFORE</span>
+                <div style="height: 250px; display: flex; gap: 2px; overflow: hidden; position: relative;">
+                    <div style="width: 50%; position: relative;">
+                        <img src="hp255-before.jpg" alt="HP 255 Broken Display" style="width: 100%; height: 100%; object-fit: cover;">
+                        <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: #fff; font-size: 0.6rem; padding: 2px 6px; border-radius: 3px;">BEFORE</span>
+                    </div>
+                    <div style="width: 50%; position: relative;">
+                        <img src="hp255-display.jpg" alt="HP 255 New Display" style="width: 100%; height: 100%; object-fit: cover;">
+                        <span style="position: absolute; bottom: 5px; right: 5px; background: var(--neon-gold); color: #000; font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; font-weight: bold;">AFTER</span>
+                    </div>
+                    <div style="position: absolute; top: 10px; right: 10px; background: var(--neon-gold); color: #000; padding: 4px 12px; border-radius: 4px; font-weight: 900; font-size: 0.7rem; z-index: 10;">REPAIR_SUCCESS</div>
+                </div>
+                <div style="padding: 20px;">
+                    <h4 style="color: var(--neon-gold); margin: 0;">HP 255 G10 Logic</h4>
+                    <p style="font-size: 0.85rem; color: #bcc1c8;">Full panel replacement and display calibration for professional output.</p>
+                </div>
+            </div>
         </div>
-        <div style="width: 50%; position: relative;">
-            <img src="hp255-display.jpg" alt="HP 255 New Display" style="width: 100%; height: 100%; object-fit: cover;">
-            <span style="position: absolute; bottom: 5px; right: 5px; background: var(--neon-gold); color: #000; font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; font-weight: bold;">AFTER</span>
-        </div>
-        <div style="position: absolute; top: 10px; right: 10px; background: var(--neon-gold); color: #000; padding: 4px 12px; border-radius: 4px; font-weight: 900; font-size: 0.7rem; z-index: 10;">REPAIR_SUCCESS</div>
-    </div>
-    
-    <div style="padding: 20px;">
-        <h4 style="color: var(--neon-gold); margin: 0;">HP 255 G10 Logic</h4>
-        <p style="font-size: 0.85rem; color: #bcc1c8;">Full panel replacement and display calibration for professional output.</p>
-    </div>
-</div>
+     </div>
 
      <div class="log-section reveal" style="margin-top: 120px;"> 
           <h2 style="text-align: center; color: var(--light-blue); letter-spacing: 5px; font-weight: 900; text-transform: uppercase;">Field Log Highlights</h2> 
           <div class="log-grid"> 
               <div class="log-card" style="border-left-color: var(--neon-pink);">
                   <h4>HP 15 Hinge/Bezel Restoration</h4>
-                  <p>Repaired detached top and bottom cases, securing structural integrity and restoring a clean, working desktop environment[cite: 1].</p>
+                  <p>Repaired detached top and bottom cases, securing structural integrity and restoring a clean, working desktop environment.</p>
               </div>
               <div class="log-card" style="border-left-color: var(--neon-gold);">
                   <h4>HP 255 G10 Display Replacement</h4>
-                  <p>Executed full display panel swap for recent G10 model, ensuring perfect color calibration and bezel seating[cite: 1].</p>
+                  <p>Executed full display panel swap for recent G10 model, ensuring perfect color calibration and bezel seating.</p>
               </div>
               <div class="log-card" style="border-left-color: var(--neon-green);">
                   <h4>HP LaserJet Logic Audit</h4>
@@ -400,7 +360,6 @@
 
      <div class="reveal" style="margin-top: 100px;">
         <h2 style="text-align: center; color: var(--light-blue); letter-spacing: 5px; font-weight: 900; text-transform: uppercase;">KATS Live Diagnostic Hub</h2>
-        
         <div class="terminal-container">
             <div class="terminal-header">
                 <span class="terminal-button red"></span>
@@ -408,10 +367,7 @@
                 <span class="terminal-button green"></span>
                 <span class="terminal-title">KATS_DIAGNOSTICS_v3.0.sys</span>
             </div>
-            
-            <div class="terminal-body" id="terminal-output">
-                </div>
-
+            <div class="terminal-body" id="terminal-output"></div>
             <div class="terminal-footer">
                 <span class="prompt">KATS_ADMIN:~$</span>
                 <input type="text" id="terminal-input" autocomplete="off" placeholder="Type /help to see commands...">
@@ -500,7 +456,6 @@
      let drops = [];
      const fontSize = 16;
 
-     // RAINBOW MATRIX LOGIC
      function startMatrix() {
         mCanvas.width = window.innerWidth;
         mCanvas.height = window.innerHeight;
@@ -541,7 +496,6 @@
         mCtx.shadowBlur = 0; 
      }
 
-     // DYNAMIC LOADING SYSTEM
      window.addEventListener('load', () => {
         const progress = document.getElementById('load-progress');
         const status = document.getElementById('load-status');
@@ -629,7 +583,6 @@
      } 
      window.onscroll = reveal; reveal();
 
-     // TERMINAL LOGIC
      document.addEventListener("DOMContentLoaded", () => {
          const terminal = document.getElementById("terminal-output");
          const tInput = document.getElementById("terminal-input");
