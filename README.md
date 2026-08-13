@@ -11,7 +11,7 @@ Welcome to the official repository for the KATS Engineering Portal. We specializ
 - **Infrastructure:** Network shares, surge protection audits, and fleet-wide OS deployment.
 
 ## 📍 Field Ops
-**Command Center:** 39 Grovedale Drive, Kingston 10, Jamaica.  
+**Command Center:** Just ask.  
 **Primary Tech:** 876-383-3293  
 **Field Ops:** 876-379-1037
 
